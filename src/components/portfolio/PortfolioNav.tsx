@@ -32,7 +32,7 @@ export function PortfolioNav() {
   }, [close]);
 
   return (
-    <nav aria-label="Main">
+    <nav className="site-nav" aria-label="Main">
       <Link href="/" className="nav-logo" onClick={close}>
         S<span>.</span>Pradhan
       </Link>

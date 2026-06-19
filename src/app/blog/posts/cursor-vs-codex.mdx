@@ -1,0 +1,200 @@
+---
+title: "Cursor vs Codex: IDE Copilot or Autonomous Agent?"
+summary: "A practical comparison of Cursor and OpenAI Codex — two $20/month AI coding tools that solve different problems. Neither replaces the other; the right choice depends on whether you want to write code with AI assistance or delegate whole tasks."
+publishedAt: "2026-06-19"
+tag: "Developer Tools"
+---
+
+**TL;DR:** Cursor is an AI-native IDE for hands-on development — tab completions, inline edits, and agent mode inside your editor. OpenAI Codex is an autonomous coding agent for task delegation — CLI, desktop app, cloud sandboxes, and GitHub/Slack integrations. Both start at $20/month, but they optimize for opposite workflows. Most productive developers use both: Cursor for daily editing, Codex for long-running or parallel tasks you can review later.
+
+*This post assumes familiarity with AI-assisted development. Written June 2026; pricing and limits change frequently — verify on [cursor.com/pricing](https://cursor.com/pricing) and [developers.openai.com/codex/pricing](https://developers.openai.com/codex/pricing) before buying.*
+
+## Why This Comparison Exists (and What It Is Not)
+
+Search for "Codex" in 2026 and you will find two unrelated products. The original OpenAI Codex API — the model behind early GitHub Copilot — was deprecated in 2023. What OpenAI ships today is a fundamentally different product: a full autonomous coding agent bundled with ChatGPT subscriptions.
+
+Cursor, meanwhile, is a fork of VS Code rebuilt around AI. It is not a terminal agent. It is the editor itself.
+
+The confusion is understandable. Both tools cost roughly $20/month. Both can edit multiple files. Both claim "agent" capabilities. But they sit at opposite ends of the same spectrum:
+
+| | Cursor | OpenAI Codex |
+|---|---|---|
+| **Primary role** | AI-enhanced IDE | Autonomous coding agent |
+| **You are** | Writing code with AI help | Reviewing code the AI wrote |
+| **Interface** | Visual editor (VS Code fork) | Terminal CLI, desktop app, web |
+| **Best moment** | Mid-implementation, tight feedback loop | "Build this feature while I work on something else" |
+
+This is a workflow comparison, not a benchmark of which model writes better code. Raw output quality depends on the model you select, not the wrapper.
+
+## How Each Tool Actually Works
+
+### Cursor: AI Inside the Editor
+
+Cursor keeps you in the typing loop. Three interaction modes cover most workflows:
+
+- **Tab completions** — Multi-line predictions as you type, trained on your recent edits. This is the feature you feel every few seconds.
+- **Ask mode** — Chat about your codebase without the AI touching files.
+- **Agent mode** — The AI searches your repo, edits files, runs terminal commands, and pauses for your approval.
+
+Cursor indexes your entire codebase for context and supports multiple frontier models — Claude, GPT, Gemini, and Cursor's own models. You pick the model per task, or let Auto mode route to the most efficient option.
+
+Recent releases added parallel agents (up to 8 simultaneous tasks on isolated git worktrees) and Cloud Agents (async work in remote VMs). These close the gap with pure agent tools, but the core experience remains editor-first: you see diffs as they happen, you stay close to the code.
+
+### Codex: Delegate and Review
+
+Codex inverts the workflow. You describe an outcome — "add rate limiting to the auth middleware" or "fix the failing tests on this branch" — and Codex works through it in a sandboxed environment. You supervise rather than pair-program.
+
+Entry points:
+
+- **Codex CLI** — Open-source terminal agent. Runs locally, reads your repo, makes changes, executes commands.
+- **Desktop app** — macOS and Windows app for task delegation without living in a terminal.
+- **Cloud tasks** — Isolated environments where Codex runs autonomously and returns reviewable diffs or pull requests.
+- **Integrations** — GitHub code review (`@Codex` on PRs), Slack, and plugins for tools like Figma.
+
+Codex is OpenAI-model-centric on the hosted product. The CLI is the escape hatch: fork it, extend it, or point it at other providers via configuration. The web and desktop apps stay on OpenAI models (currently GPT-5.5, GPT-5.4, and GPT-5.4 mini).
+
+## Feature Comparison
+
+| Feature | Cursor | OpenAI Codex |
+|---|---|---|
+| **Type** | AI-native IDE | Agent (CLI + app + cloud) |
+| **Inline completions** | Yes (core feature) | No |
+| **Multi-file editing** | Yes (Agent / Composer) | Yes |
+| **Terminal execution** | Yes (local) | Yes (local + cloud sandbox) |
+| **Parallel tasks** | Up to 8 (git worktrees / cloud VMs) | Yes (cloud tasks run in parallel) |
+| **Model choice** | Claude, GPT, Gemini, Cursor models | OpenAI models (CLI configurable) |
+| **GitHub PR workflow** | Via agent, Bugbot (usage-based) | Native code review, auto-review |
+| **Slack integration** | No | Yes |
+| **Open source** | No | CLI is open source |
+| **VS Code extensions** | Full compatibility | N/A (not an IDE) |
+| **Privacy mode** | Yes (no training on your code) | Enterprise: no training by default |
+
+### Where Cursor Wins
+
+**Active, iterative development.** When you are building a feature line-by-line, Cursor's tab completions and inline diffs keep you in flow. You type a function signature; Cursor predicts the body. You rename a variable; Cursor updates references across files.
+
+**Model flexibility.** Different tasks benefit from different models. Cursor lets you use Claude for architecture reasoning, a faster model for boilerplate, and your own API keys if you prefer. Codex on the hosted product is OpenAI-only.
+
+**Editor-native experience.** If your workflow is "I write code, AI assists," Cursor is the tool. Syntax highlighting, debugging, extensions, git integration — all the VS Code ergonomics you already know, with AI woven through every layer.
+
+**Real-time feedback.** Agent mode shows you each edit as it happens. You approve, reject, or redirect mid-task. For complex refactors where you need to steer, this matters.
+
+### Where Codex Wins
+
+**True task delegation.** Spin up a cloud task, close your laptop, come back to a PR. Codex is built for the "describe outcome, review result" workflow, not the "pair-program in real time" workflow.
+
+**Parallel throughput.** Multiple cloud tasks run simultaneously in isolated sandboxes. If you have a clear task breakdown — fix these three unrelated bugs, scaffold these two endpoints — Codex can work on all of them while you focus elsewhere.
+
+**CI/CD and review integration.** Automatic PR code reviews, Slack notifications, and GitHub-native workflows make Codex a team tool, not just a personal assistant. Tag `@Codex` on a pull request and get a structured review.
+
+**Bundled with ChatGPT.** If you already pay for ChatGPT Plus ($20/month), Codex is included. No additional subscription. Cursor is a separate $20/month charge on top of any ChatGPT plan you might have.
+
+**Open-source CLI.** Teams can fork the Codex CLI, add custom tools, and integrate it into internal pipelines. Cursor is a closed product.
+
+## Pricing: Same Entry Point, Different Economics
+
+Both tools start at $20/month. That is where the similarity ends.
+
+### Cursor pricing
+
+| Plan | Price | What you get |
+|---|---|---|
+| Hobby | Free | Limited agent requests and tab completions |
+| Pro | $20/mo | Extended agent limits, frontier models, MCP/skills/hooks |
+| Pro+ | $60/mo | 3× usage (recommended for daily agent users) |
+| Ultra | $200/mo | 20× usage, priority access |
+| Teams | $40/user/mo | SSO, admin controls, shared team context |
+| Enterprise | Custom | Pooled usage, audit logs, SCIM |
+
+Cursor uses a credit pool. Each frontier-model call deducts from your monthly balance. Auto mode is effectively unlimited on Pro. Cloud Agents bill separately from your subscription credits.
+
+Heavy agent users — especially those running parallel agents — burn through the $20 Pro pool quickly. Cursor themselves recommend Pro+ ($60/month) for daily agent workflows.
+
+### OpenAI Codex
+
+| Plan | Price | Codex access |
+|---|---|---|
+| Free | $0 | Trial only, no cloud features |
+| Plus | $20/mo | Local messages + cloud tasks + code reviews |
+| Pro (5×) | $100/mo | 5× Plus usage, GPT-5.3-Codex-Spark preview |
+| Pro (20×) | $200/mo | 20× Plus usage |
+| Business | Per seat | Same base limits + SSO, admin controls |
+| API key | Pay-per-token | CLI only, no cloud features |
+
+Codex limits are measured in local messages and cloud tasks per 5-hour rolling window. A "local message" is a CLI or IDE-extension interaction. A "cloud task" is an autonomous job in a sandboxed environment. Both draw from the same pool.
+
+GPT-5.4 mini stretches limits further for routine tasks. Fast mode and image generation consume credits at higher rates.
+
+### The Real Cost Question
+
+At $20/month, both tools are accessible. The cost divergence shows up under heavy use:
+
+- **Cursor:** Credit variability. Picking expensive models manually or running parallel agents can exhaust your pool in days. Budget $60/month (Pro+) if agents are your primary workflow.
+- **Codex:** More predictable included usage on ChatGPT plans. If you already subscribe to ChatGPT Plus, Codex adds zero marginal cost. Cloud tasks have clear per-window limits.
+
+Running both costs $40/month minimum ($20 Cursor + $20 ChatGPT Plus). For many developers, that is the actual answer.
+
+## Workflow Patterns That Work
+
+### Pattern 1: Cursor-Primary (Most Solo Developers)
+
+Use Cursor for everything during active development. Tab completions for speed, Agent mode for multi-file changes, Ask mode for understanding unfamiliar code.
+
+Reach for Codex when you have a well-scoped task you can delegate — "migrate these 12 test files to the new assertion library" — and you want to keep coding on something else.
+
+### Pattern 2: Codex-Primary (Review-Heavy Teams)
+
+Use Codex for feature implementation, bug fixes, and PR reviews. Developers spend more time reviewing diffs and writing specs than typing code.
+
+Keep a lightweight editor (or Cursor on the free tier) for small edits and config changes.
+
+### Pattern 3: Both, Deliberately
+
+This is what the data suggests most productive developers actually do:
+
+| Task | Tool | Why |
+|---|---|---|
+| Daily feature work | Cursor | Inline completions, real-time diffs |
+| Multi-file refactor | Cursor Agent | Steer mid-task, see changes live |
+| Long-running migration | Codex cloud task | Delegate, review PR later |
+| PR code review | Codex (`@Codex`) | Native GitHub integration |
+| Quick bug fix | Cursor Tab | Fastest path from thought to code |
+| Parallel unrelated tasks | Codex | Multiple sandboxes simultaneously |
+
+## Trade-offs and Limitations
+
+### Cursor limitations
+
+- **Not a delegation tool.** Even with Cloud Agents, the mental model is "AI assists me while I code," not "AI codes while I do something else."
+- **Credit unpredictability.** Heavy agent usage on frontier models can surprise you on the bill. Monitor your dashboard.
+- **Closed ecosystem.** No open-source CLI to fork. You are on Cursor's platform.
+- **Single-vendor IDE risk.** Your entire development environment depends on one startup's fork of VS Code.
+
+### Codex limitations Codex does not replace the typing experience. You still need an editor for moment-to-moment coding.
+- **OpenAI model lock-in** on hosted products. Multi-model teams may find this limiting.
+- **Cloud tasks require trust.** Your code runs in OpenAI's sandboxed environment. Enterprise plans offer data controls; Free/Plus users should read the privacy policy.
+- **Review overhead.** Delegation only works if you review output carefully. Bad Codex output merged without review is worse than no AI at all.
+
+### Neither Tool Solves
+
+- **Architecture decisions.** Both can implement your design. Neither reliably chooses the right design.
+- **Legacy code understanding at scale.** Both struggle with enormous, poorly documented codebases without careful context management.
+- **Production incident response.** Real-time debugging under pressure still needs a human who understands the system.
+
+## Recommendation
+
+**Choose Cursor if** you want to stay close to the code. You write features, you want AI filling gaps and handling tedious edits, and you value seeing diffs in real time. If you live in VS Code today, the migration cost is near zero.
+
+**Choose Codex if** you think in outcomes, not sessions. You want to describe tasks, review PRs, and spend less time typing. If you already pay for ChatGPT Plus, the entry cost is zero.
+
+**Choose both if** you are a professional developer doing meaningful work daily. The $40/month combined cost is less than most developers spend on coffee, and the workflow complementarity is genuine — not marketing.
+
+There is no universal winner. The question is not "which is better" but "which matches how you actually work."
+
+## Further Reading
+
+- [Cursor Agent Best Practices](https://cursor.com/blog/agent-best-practices) — Official guide from the Cursor team on effective agent usage
+- [Codex Pricing](https://developers.openai.com/codex/pricing) — Current plan limits and credit mechanics
+- [Codex CLI (open source)](https://github.com/openai/codex) — Fork, extend, or self-host the terminal agent
+- [Cursor Pricing](https://cursor.com/pricing) — Current tiers and usage model
+- [Using Codex with your ChatGPT plan](https://help.openai.com/en/articles/11369540) — Getting started with Codex on existing subscriptions

@@ -1,5 +1,6 @@
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import React, { ReactNode } from "react";
+import remarkGfm from "remark-gfm";
 import { slugify as transliterate } from "transliteration";
 
 import {
@@ -77,30 +78,79 @@ function createImage({ alt, src, ...props }: MediaProps & { src: string }) {
   );
 }
 
-function slugify(str: string): string {
-  const strWithAnd = str.replace(/&/g, " and "); // Replace & with 'and'
-  return transliterate(strWithAnd, {
-    lowercase: true,
-    separator: "-", // Replace spaces with -
-  }).replace(/\-\-+/g, "-"); // Replace multiple - with single -
+function getHeadingText(children: ReactNode): string {
+  if (children == null) return "";
+  if (typeof children === "string" || typeof children === "number") return String(children);
+  if (Array.isArray(children)) return children.map(getHeadingText).join("");
+  if (React.isValidElement<{ children?: ReactNode }>(children)) {
+    return getHeadingText(children.props.children);
+  }
+  return "";
 }
 
-function createHeading(as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6") {
-  const CustomHeading = ({
-    children,
-    ...props
-  }: Omit<React.ComponentProps<typeof HeadingLink>, "as" | "id">) => {
-    const slug = slugify(children as string);
-    return (
-      <HeadingLink marginTop="24" marginBottom="12" as={as} id={slug} {...props}>
-        {children}
-      </HeadingLink>
-    );
+function slugify(str: string): string {
+  const strWithAnd = str.replace(/&/g, " and ");
+  return transliterate(strWithAnd, {
+    lowercase: true,
+    separator: "-",
+  }).replace(/\-\-+/g, "-");
+}
+
+function createHeadingComponents() {
+  const usedSlugs = new Set<string>();
+
+  function uniqueSlug(text: string): string {
+    const base = slugify(text);
+    if (!usedSlugs.has(base)) {
+      usedSlugs.add(base);
+      return base;
+    }
+
+    let index = 2;
+    while (usedSlugs.has(`${base}-${index}`)) {
+      index += 1;
+    }
+
+    const slug = `${base}-${index}`;
+    usedSlugs.add(slug);
+    return slug;
+  }
+
+  function createHeading(as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6") {
+    const CustomHeading = ({
+      children,
+      ...props
+    }: Omit<React.ComponentProps<typeof HeadingLink>, "as" | "id">) => {
+      const slug = uniqueSlug(getHeadingText(children));
+      return (
+        <HeadingLink marginTop="24" marginBottom="12" as={as} id={slug} {...props}>
+          {children}
+        </HeadingLink>
+      );
+    };
+
+    CustomHeading.displayName = `${as}`;
+    return CustomHeading;
+  }
+
+  return {
+    h1: createHeading("h1"),
+    h2: createHeading("h2"),
+    h3: createHeading("h3"),
+    h4: createHeading("h4"),
+    h5: createHeading("h5"),
+    h6: createHeading("h6"),
   };
+}
 
-  CustomHeading.displayName = `${as}`;
-
-  return CustomHeading;
+function MdxTable({ children, ...props }: React.TableHTMLAttributes<HTMLTableElement>) {
+  return (
+    <div className="mdx-table-wrap">
+      <table className="mdx-table" {...props}>
+        {children}
+      </table>
+    </div>
+  );
 }
 
 function createParagraph({ children }: TextProps) {
@@ -170,14 +220,8 @@ function createHR() {
   );
 }
 
-const components = {
+const baseComponents = {
   p: createParagraph as any,
-  h1: createHeading("h1") as any,
-  h2: createHeading("h2") as any,
-  h3: createHeading("h3") as any,
-  h4: createHeading("h4") as any,
-  h5: createHeading("h5") as any,
-  h6: createHeading("h6") as any,
   img: createImage as any,
   a: CustomLink as any,
   code: createInlineCode as any,
@@ -186,6 +230,7 @@ const components = {
   ul: createList("ul") as any,
   li: createListItem as any,
   hr: createHR as any,
+  table: MdxTable as any,
   Heading,
   Text,
   CodeBlock,
@@ -205,9 +250,22 @@ const components = {
 };
 
 type CustomMDXProps = MDXRemoteProps & {
-  components?: typeof components;
+  components?: typeof baseComponents;
 };
 
 export function CustomMDX(props: CustomMDXProps) {
-  return <MDXRemote options={{ blockJS: false }} {...props} components={{ ...components, ...(props.components || {}) }} />;
+  const headings = createHeadingComponents();
+
+  return (
+    <MDXRemote
+      options={{
+        blockJS: false,
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+        },
+      }}
+      {...props}
+      components={{ ...baseComponents, ...headings, ...(props.components || {}) }}
+    />
+  );
 }

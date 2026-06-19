@@ -5,8 +5,6 @@ import {
   Schema,
   Column,
   Heading,
-  HeadingNav,
-  Icon,
   Row,
   Text,
   SmartLink,
@@ -19,6 +17,7 @@ import { formatDate } from "@/utils/formatDate";
 import { getPosts } from "@/utils/utils";
 import { Metadata } from "next";
 import React from "react";
+import { BlogTableOfContents } from "@/components/blog/BlogTableOfContents";
 import { Posts } from "@/components/blog/Posts";
 import { ShareSection } from "@/components/blog/ShareSection";
 
@@ -69,12 +68,20 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
     post.metadata.team?.map((person) => ({
       src: person.avatar,
     })) || [];
+  const words = post.content
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  const readMinutes = Math.max(1, Math.ceil(words / 220));
 
   return (
-    <Row fillWidth>
-      <Row maxWidth={12} m={{ hide: true }} />
-      <Row fillWidth horizontal="center">
-        <Column as="section" maxWidth="m" horizontal="center" gap="l" paddingTop="24">
+    <div className="blog-post-layout">
+      <aside className="blog-post-toc-aside">
+        <BlogTableOfContents />
+      </aside>
+
+        <div className="blog-post-main">
           <Schema
             as="blogPosting"
             baseURL={baseURL}
@@ -98,7 +105,8 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
               <Text variant="label-strong-m">Blog</Text>
             </SmartLink>
             <Text variant="body-default-xs" onBackground="neutral-weak" marginBottom="12">
-              {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
+              {post.metadata.publishedAt ? `${formatDate(post.metadata.publishedAt)} · ` : ""}
+              {readMinutes} min read
             </Text>
             <Heading variant="display-strong-m">{post.metadata.title}</Heading>
             {post.metadata.subtitle && (
@@ -133,7 +141,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
               marginBottom="8"
             />
           )}
-          <Column as="article" maxWidth="s">
+          <Column as="article" className="blog-post-article" maxWidth="s">
             <CustomMDX source={post.content} />
           </Column>
           
@@ -144,25 +152,19 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
 
           <Column fillWidth gap="40" horizontal="center" marginTop="40">
             <Line maxWidth="40" />
-            <Text as="h2" id="recent-posts" variant="heading-strong-xl" marginBottom="24">
+            <Text
+              as="h2"
+              id="recent-posts"
+              data-exclude-nav
+              variant="heading-strong-xl"
+              marginBottom="24"
+            >
               Recent posts
             </Text>
             <Posts exclude={[post.slug]} range={[1, 2]} columns="2" thumbnail direction="column" />
           </Column>
           <ScrollToHash />
-        </Column>
-      </Row>
-      <Column
-        maxWidth={12}
-        paddingLeft="40"
-        fitHeight
-        position="sticky"
-        top="80"
-        gap="16"
-        m={{ hide: true }}
-      >
-        <HeadingNav fitHeight />
-      </Column>
-    </Row>
+      </div>
+    </div>
   );
 }

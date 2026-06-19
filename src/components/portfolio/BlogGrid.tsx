@@ -1,11 +1,38 @@
-"use client";
+import Link from "next/link";
+import { formatDate } from "@/utils/formatDate";
 
-import { blogPosts } from "./siteContent";
-import { useToast } from "./Toast";
+type BlogPost = {
+  slug: string;
+  content: string;
+  metadata: {
+    title: string;
+    summary: string;
+    publishedAt: string;
+    tag?: string;
+  };
+};
 
-export function BlogGrid() {
-  const { showToast } = useToast();
+const THUMBS = ["bt1", "bt2", "bt3", "bt4", "bt5", "bt6"] as const;
+const TAG_ICONS: Record<string, string> = {
+  "Developer Tools": "🛠️",
+  "Agentic AI": "🤖",
+  LLMOps: "⚙️",
+  Architecture: "🏗️",
+  "RAG Systems": "🧠",
+  "ML Engineering": "📊",
+  "Career & Leadership": "🚀",
+};
 
+function estimateReadMinutes(content: string) {
+  const words = content
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 220));
+}
+
+export function BlogGrid({ posts }: { posts: BlogPost[] }) {
   return (
     <>
       <section className="blog-header">
@@ -24,26 +51,22 @@ export function BlogGrid() {
       </section>
 
       <div className="blog-grid">
-        {blogPosts.map((post) => (
-          <button
-            key={post.title}
-            type="button"
-            className="blog-card"
-            onClick={() =>
-              showToast("Full article coming soon — reach out if you want the draft.")
-            }
-          >
-            <div className={`blog-thumb ${post.thumb}`}>{post.icon}</div>
+        {posts.map((post, index) => (
+          <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
+            <div className={`blog-thumb ${THUMBS[index % THUMBS.length]}`}>
+              {TAG_ICONS[post.metadata.tag ?? ""] ?? "📝"}
+            </div>
             <div className="blog-body">
-              <div className="blog-cat">{post.cat}</div>
-              <div className="blog-title">{post.title}</div>
-              <div className="blog-excerpt">{post.excerpt}</div>
+              <div className="blog-cat">{post.metadata.tag}</div>
+              <div className="blog-title">{post.metadata.title}</div>
+              <div className="blog-excerpt">{post.metadata.summary}</div>
               <div className="blog-meta">
-                <span className="blog-date">Coming Soon</span>
-                <span className="blog-read">{post.read}</span>
+                <span className="blog-date">
+                  {formatDate(post.metadata.publishedAt, false)} · {estimateReadMinutes(post.content)} min read
+                </span>
               </div>
             </div>
-          </button>
+          </Link>
         ))}
       </div>
 

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "technical-blog-writing": {
+      "source": "inferen-sh/skills",
+      "sourceType": "github",
+      "skillPath": "guides/writing/technical-blog-writing/SKILL.md",
+      "computedHash": "9d67d512c48d5fd57b7e3e5235983b6434e3fe3b03c25d5f4a057dff12b2e149"
+    }
+  }
+}

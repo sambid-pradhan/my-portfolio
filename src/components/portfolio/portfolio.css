@@ -69,7 +69,7 @@ body {
   }
 }
 
-nav {
+nav.site-nav {
   position: fixed;
   inset: 0 0 auto;
   z-index: 100;
