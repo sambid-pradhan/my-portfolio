@@ -30,9 +30,14 @@ export async function generateMetadata() {
   });
 }
 
+const themeInitScript = `(function(){try{var t=localStorage.getItem("portfolio-theme");if(t==="dark"||t==="night")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${dmSans.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>
         <Providers>
           <PortfolioLayout>{children}</PortfolioLayout>

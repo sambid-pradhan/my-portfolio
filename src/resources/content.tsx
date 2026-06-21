@@ -6,7 +6,7 @@ const person: Person = {
   lastName: "Pradhan",
   name: "Sambid Pradhan",
   role: "GenAI Architect",
-  avatar: "/images/profile/profile.jpg",
+  avatar: "/images/profile/profile.png",
   email: "sambid9988@gmail.com",
   location: "Asia/Kolkata",
   languages: ["English", "Hindi", "Odia"],

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { PortfolioThemeToggle } from "./PortfolioThemeToggle";
 import { pathnameToPage } from "./usePageTransition";
 
 const links = [
@@ -57,7 +58,11 @@ export function PortfolioNav() {
             </Link>
           </li>
         ))}
+        <li className="nav-theme-item">
+          <PortfolioThemeToggle />
+        </li>
       </ul>
+      <PortfolioThemeToggle className="theme-switcher--desktop" />
     </nav>
   );
 }

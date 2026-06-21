@@ -77,10 +77,6 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
 
   return (
     <div className="blog-post-layout">
-      <aside className="blog-post-toc-aside">
-        <BlogTableOfContents />
-      </aside>
-
         <div className="blog-post-main">
           <Schema
             as="blogPosting"
@@ -141,9 +137,14 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
               marginBottom="8"
             />
           )}
-          <Column as="article" className="blog-post-article" maxWidth="s">
-            <CustomMDX source={post.content} />
-          </Column>
+          <div className="blog-post-content-with-toc">
+            <Column as="article" className="blog-post-article" maxWidth="s">
+              <CustomMDX source={post.content} />
+            </Column>
+            <aside className="blog-post-toc-aside">
+              <BlogTableOfContents />
+            </aside>
+          </div>
           
           <ShareSection 
             title={post.metadata.title} 

@@ -89,7 +89,7 @@
 }
 
 .mdx-table th {
-  background: rgba(30, 72, 69, 0.06);
+  background: var(--table-header-bg);
   font-weight: 600;
 }
 
@@ -103,13 +103,15 @@
   padding: 2rem var(--page-gutter, 1.5rem) 4rem;
 }
 
+.blog-post-content-with-toc {
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
 .blog-post-toc-aside {
-  position: fixed;
-  top: calc(var(--nav-h, 64px) + 40px);
-  right: max(20px, calc((100vw - 1200px) / 2));
-  width: 210px;
-  max-height: calc(100vh - var(--nav-h, 64px) - 56px);
-  overflow-y: auto;
+  display: none;
 }
 
 .blog-post-main {
@@ -120,6 +122,16 @@
   align-items: center;
   gap: 2rem;
   padding-top: 1.5rem;
+}
+
+.blog-post-layout a:not(.button) {
+  color: var(--teal-dark);
+  text-decoration: none;
+  text-decoration-thickness: 0;
+}
+
+.blog-post-layout a:not(.button):hover {
+  color: var(--teal-mid);
 }
 
 .blog-post-article {
@@ -161,19 +173,21 @@
   font-size: 11px;
   line-height: 1.42;
   letter-spacing: 0.01em;
-  color: #5f6b76;
+  color: var(--muted);
   text-decoration: none;
+  text-decoration-thickness: 0;
   transition: color 200ms ease;
 }
 
 .blog-post-toc__item--h3 a {
   padding-left: 0.72rem;
   font-size: 10.25px;
-  color: #778391;
+  color: var(--muted);
+  opacity: 0.85;
 }
 
 .blog-post-toc__item.is-active a {
-  color: #111827;
+  color: var(--teal-dark);
   font-weight: 600;
 }
 
@@ -222,15 +236,33 @@
   max-width: 100%;
 }
 
+@media (min-width: 1024px) {
+  .blog-post-layout {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 1200px;
+  }
+
+  .blog-post-content-with-toc {
+    grid-template-columns: minmax(0, 720px) 210px;
+    justify-content: center;
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .blog-post-toc-aside {
+    display: block;
+    position: sticky;
+    top: calc(var(--nav-h, 64px) + 24px);
+    width: 210px;
+    overflow: visible;
+    align-self: start;
+  }
+}
+
 @media (max-width: 1023px) {
   .blog-post-layout {
     grid-template-columns: minmax(0, 1fr);
     max-width: 720px;
     padding-top: 1.5rem;
-  }
-
-  .blog-post-toc-aside {
-    display: none;
   }
 
   .blog-post-main {
@@ -240,6 +272,16 @@
 
 @media (hover: hover) and (pointer: fine) {
   .blog-post-toc__item a:hover {
-    color: #1f2937;
+    color: var(--teal-dark);
   }
+}
+
+.blog-post-article img {
+  width: 100%;
+  height: auto;
+  margin: 1.25rem 0 0.75rem;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: none;
 }

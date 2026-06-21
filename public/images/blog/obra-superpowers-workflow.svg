@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="w1 w2">
+  <title id="w1">Default AI Coding Workflow vs Superpowers</title>
+  <desc id="w2">Three-step default workflow compared with an eight-step Superpowers pipeline with approval gates.</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fcf9ea"/>
+      <stop offset="100%" stop-color="#f3efe0"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e4845"/>
+      <stop offset="100%" stop-color="#3d7a75"/>
+    </linearGradient>
+    <linearGradient id="coralGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffa4a4"/>
+      <stop offset="100%" stop-color="#ffbdbd"/>
+    </linearGradient>
+    <linearGradient id="mintGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9dd4cf"/>
+      <stop offset="100%" stop-color="#badfdb"/>
+    </linearGradient>
+    <linearGradient id="pillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8f6ee"/>
+    </linearGradient>
+    <linearGradient id="creamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fffef8"/>
+      <stop offset="100%" stop-color="#f5f2e0"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#1e4845" flood-opacity="0.1"/>
+    </filter>
+    <filter id="pillShadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1e4845" flood-opacity="0.1"/>
+    </filter>
+    <filter id="glowCoral" x="-35%" y="-35%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#ffa4a4" flood-opacity="0.5"/>
+    </filter>
+    <filter id="glowMint" x="-35%" y="-35%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#9dd4cf" flood-opacity="0.55"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#2a5c58"/>
+    </marker>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1" fill="#1e4845" opacity="0.045"/>
+    </pattern>
+  </defs>
+
+  <rect width="900" height="520" fill="url(#bgGrad)"/>
+  <rect width="900" height="520" fill="url(#dots)"/>
+
+  <!-- Default AI Coding Workflow -->
+  <g filter="url(#cardShadow)">
+    <rect x="32" y="28" width="836" height="138" rx="18" fill="#fff" stroke="rgba(30,72,69,0.1)" stroke-width="1.5"/>
+    <rect x="32" y="28" width="5" height="138" rx="2.5" fill="url(#coralGrad)"/>
+  </g>
+  <text x="56" y="58" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-weight="700" fill="#1e4845">Default AI Coding Workflow</text>
+  <text x="56" y="78" font-family="Arial, sans-serif" font-size="11" font-weight="600" letter-spacing="0.14em" fill="#5a7a77">3 STEPS &#183; NO GATES</text>
+
+  <g filter="url(#pillShadow)">
+    <rect x="170" y="92" width="108" height="42" rx="21" fill="url(#pillGrad)" stroke="rgba(30,72,69,0.16)" stroke-width="1.2"/>
+    <rect x="396" y="92" width="108" height="42" rx="21" fill="url(#pillGrad)" stroke="rgba(30,72,69,0.16)" stroke-width="1.2"/>
+  </g>
+  <g filter="url(#glowCoral)">
+    <rect x="622" y="92" width="108" height="42" rx="21" fill="url(#coralGrad)" stroke="#e88888" stroke-width="1.2"/>
+  </g>
+  <text x="224" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1e4845">Prompt</text>
+  <text x="450" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1e4845">Code</text>
+  <text x="676" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#8f3f3f">Hope</text>
+  <path d="M280 113 H394" stroke="#2a5c58" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity="0.72"/>
+  <path d="M506 113 H620" stroke="#2a5c58" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity="0.72"/>
+
+  <!-- Superpowers -->
+  <g filter="url(#cardShadow)">
+    <rect x="32" y="188" width="836" height="300" rx="20" fill="#fff" stroke="rgba(30,72,69,0.12)" stroke-width="1.5"/>
+    <rect x="32" y="188" width="836" height="64" rx="20" fill="url(#tealGrad)"/>
+    <rect x="32" y="228" width="836" height="24" fill="url(#tealGrad)"/>
+  </g>
+  <text x="56" y="220" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700" fill="#fff">Superpowers</text>
+  <text x="56" y="238" font-family="Arial, sans-serif" font-size="11" font-weight="600" letter-spacing="0.14em" fill="rgba(255,255,255,0.78)">8 STEPS &#183; APPROVAL GATES BETWEEN PHASES</text>
+
+  <g transform="translate(109, 0)">
+    <rect x="56" y="272" width="72" height="24" rx="12" fill="#eef4f3" stroke="#dde7e6"/>
+    <text x="92" y="288" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="0.1em" fill="#2a5c58">DESIGN</text>
+    <rect x="56" y="378" width="96" height="24" rx="12" fill="#eef4f3" stroke="#dde7e6"/>
+    <text x="104" y="394" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="0.1em" fill="#2a5c58">BUILD &amp; SHIP</text>
+
+    <g filter="url(#pillShadow)">
+      <rect x="148" y="304" width="92" height="40" rx="20" fill="url(#creamGrad)" stroke="rgba(30,72,69,0.14)" stroke-width="1.2"/>
+      <rect x="268" y="304" width="108" height="40" rx="20" fill="url(#creamGrad)" stroke="rgba(30,72,69,0.14)" stroke-width="1.2"/>
+      <rect x="404" y="304" width="92" height="40" rx="20" fill="url(#creamGrad)" stroke="rgba(30,72,69,0.14)" stroke-width="1.2"/>
+      <rect x="524" y="304" width="92" height="40" rx="20" fill="url(#creamGrad)" stroke="rgba(30,72,69,0.14)" stroke-width="1.2"/>
+    </g>
+    <text x="194" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e4845">Prompt</text>
+    <text x="322" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e4845">Brainstorm</text>
+    <text x="450" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e4845">Spec</text>
+    <text x="570" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e4845">Plan</text>
+    <path d="M242 324 H266" stroke="#2a5c58" stroke-width="2" marker-end="url(#arrow)" opacity="0.7"/>
+    <path d="M378 324 H402" stroke="#2a5c58" stroke-width="2" marker-end="url(#arrow)" opacity="0.7"/>
+    <path d="M498 324 H522" stroke="#2a5c58" stroke-width="2" marker-end="url(#arrow)" opacity="0.7"/>
+
+    <path d="M570 344 V368 H194 V410" stroke="#2a5c58" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity="0.62"/>
+    <rect x="552" y="348" width="36" height="18" rx="9" fill="#fff" stroke="rgba(30,72,69,0.14)"/>
+    <text x="570" y="361" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="700" letter-spacing="0.06em" fill="#5a7a77">GATE</text>
+
+    <g filter="url(#pillShadow)">
+      <rect x="148" y="410" width="92" height="40" rx="20" fill="url(#creamGrad)" stroke="rgba(30,72,69,0.14)" stroke-width="1.2"/>
+      <rect x="268" y="410" width="92" height="40" rx="20" fill="url(#creamGrad)" stroke="rgba(30,72,69,0.14)" stroke-width="1.2"/>
+      <rect x="388" y="410" width="118" height="40" rx="20" fill="url(#creamGrad)" stroke="rgba(30,72,69,0.14)" stroke-width="1.2"/>
+    </g>
+    <g filter="url(#glowMint)">
+      <rect x="534" y="410" width="92" height="40" rx="20" fill="url(#mintGrad)" stroke="#1e4845" stroke-width="1.2"/>
+    </g>
+    <text x="194" y="434" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e4845">TDD</text>
+    <text x="314" y="434" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e4845">Review</text>
+    <text x="447" y="434" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e4845">Verification</text>
+    <text x="580" y="434" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e4845">Merge</text>
+    <path d="M242 430 H266" stroke="#2a5c58" stroke-width="2" marker-end="url(#arrow)" opacity="0.7"/>
+    <path d="M362 430 H386" stroke="#2a5c58" stroke-width="2" marker-end="url(#arrow)" opacity="0.7"/>
+    <path d="M508 430 H532" stroke="#2a5c58" stroke-width="2" marker-end="url(#arrow)" opacity="0.7"/>
+  </g>
+
+  <text x="450" y="502" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="500" fill="#5a7a77">Process with enforcement beats prompt-and-pray</text>
+</svg>
