@@ -1208,11 +1208,24 @@ a.blog-card:hover {
 }
 
 .blog-thumb {
-  height: 130px;
+  height: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2.2rem;
+}
+
+.blog-thumb-image {
+  padding: 0;
+  overflow: hidden;
+  background: var(--card-bg);
+}
+
+.blog-thumb-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .bt1 {

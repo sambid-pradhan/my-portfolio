@@ -1,0 +1,19 @@
+<mxfile host="app.diagrams.net" modified="2026-06-21T00:00:00.000Z" agent="Cursor" version="24.7.17">
+  <diagram id="session-flow" name="Session Workflow">
+    <mxGraphModel dx="1000" dy="600" grid="1" gridSize="10" guides="1" pageWidth="900" pageHeight="240">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="hdr" value="Session Workflow" style="rounded=0;fillColor=#1E4845;fontColor=#FFFFFF;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="24" y="20" width="852" height="44" as="geometry"/></mxCell>
+        <mxCell id="s1" value="User" style="rounded=1;arcSize=50;fillColor=#FFFFFF;strokeColor=#1E4845;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="52" y="92" width="72" height="34" as="geometry"/></mxCell>
+        <mxCell id="s2" value="Brainstorm" style="rounded=1;arcSize=50;fillColor=#FFFFFF;strokeColor=#1E4845;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="148" y="92" width="96" height="34" as="geometry"/></mxCell>
+        <mxCell id="s3" value="Approve" style="rounded=1;arcSize=50;fillColor=#FFFFFF;strokeColor=#1E4845;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="268" y="92" width="84" height="34" as="geometry"/></mxCell>
+        <mxCell id="s4" value="Plan" style="rounded=1;arcSize=50;fillColor=#FFFFFF;strokeColor=#1E4845;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="376" y="92" width="72" height="34" as="geometry"/></mxCell>
+        <mxCell id="s5" value="Task" style="rounded=1;arcSize=50;fillColor=#FFFFFF;strokeColor=#1E4845;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="472" y="92" width="72" height="34" as="geometry"/></mxCell>
+        <mxCell id="s6" value="Test" style="rounded=1;arcSize=50;fillColor=#FFFFFF;strokeColor=#1E4845;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="568" y="92" width="72" height="34" as="geometry"/></mxCell>
+        <mxCell id="s7" value="Implementation" style="rounded=1;arcSize=50;fillColor=#FFFFFF;strokeColor=#1E4845;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="664" y="92" width="108" height="34" as="geometry"/></mxCell>
+        <mxCell id="s8" value="Review" style="rounded=1;arcSize=50;fillColor=#FFFFFF;strokeColor=#1E4845;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="788" y="92" width="72" height="34" as="geometry"/></mxCell>
+        <mxCell id="s9" value="Deploy" style="rounded=1;arcSize=50;fillColor=#BADFDB;strokeColor=#1E4845;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="52" y="170" width="84" height="34" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

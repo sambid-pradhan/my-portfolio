@@ -9,6 +9,8 @@ type BlogPost = {
     summary: string;
     publishedAt: string;
     tag?: string;
+    image?: string;
+    thumbnail?: string;
   };
 };
 
@@ -51,10 +53,18 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
       </section>
 
       <div className="blog-grid">
-        {posts.map((post, index) => (
+        {posts.map((post, index) => {
+          const thumbSrc = post.metadata.thumbnail || post.metadata.image;
+          return (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
-            <div className={`blog-thumb ${THUMBS[index % THUMBS.length]}`}>
-              {TAG_ICONS[post.metadata.tag ?? ""] ?? "📝"}
+            <div
+              className={`blog-thumb ${thumbSrc ? "blog-thumb-image" : THUMBS[index % THUMBS.length]}`}
+            >
+              {thumbSrc ? (
+                <img src={thumbSrc} alt="" />
+              ) : (
+                TAG_ICONS[post.metadata.tag ?? ""] ?? "📝"
+              )}
             </div>
             <div className="blog-body">
               <div className="blog-cat">{post.metadata.tag}</div>
@@ -67,7 +77,8 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
               </div>
             </div>
           </Link>
-        ))}
+          );
+        })}
       </div>
 
       <div className="blog-cta">

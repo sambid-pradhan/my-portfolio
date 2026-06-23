@@ -1,120 +1,161 @@
 ---
 title: "Obra Superpowers: A Disciplined Workflow for AI Coding Agents"
-summary: "Superpowers turns chaotic agent sessions into a repeatable engineering process — brainstorm, plan, TDD, review, verify. Here's how to install it, use it effectively, and why it actually changes output quality."
+summary: "Superpowers turns chaotic agent sessions into a repeatable engineering process — brainstorm, plan, TDD, review, verify. Here's how to install it in Cursor, use it effectively, and why it actually changes output quality."
 publishedAt: "2026-06-19"
 tag: "Agentic AI"
 ---
 
-AI coding agents rarely fail because they're incapable—they fail because they start coding before they understand the problem. [Obra Superpowers](https://github.com/obra/superpowers) fixes that by enforcing an engineering workflow: design before code, plans before implementation, TDD before production, and systematic debugging before fixes.
+**TL;DR:** [Obra Superpowers](https://github.com/obra/superpowers) gives coding agents a real software engineering workflow instead of ad-hoc improvisation. Install it in Cursor with `/plugin-add superpowers`, then let skills activate automatically: brainstorming before features, written plans before code, strict TDD during implementation, and systematic debugging when things break. It feels slower at first. The code is smaller, more testable, and less likely to need a full rewrite.
 
-**TL;DR:** Install it for your coding agent (Cursor, Claude Code, Codex CLI, Gemini CLI, and others). Skills activate automatically—brainstorming before features, written plans before code, strict TDD during implementation, systematic debugging when things break. It feels slower at first; the code is smaller, more testable, and less likely to need a rewrite.
+*This post assumes you already use Cursor Agent or a similar coding agent. Written June 2026 — install steps and skill names may change; check [obra-superpowers.mintlify.app](https://obra-superpowers.mintlify.app) for current docs.*
 
-*Assumes you use a coding agent with skill or plugin support. June 2026—check [obra-superpowers.mintlify.app](https://obra-superpowers.mintlify.app) for per-platform install steps.*
+## The Problem Superpowers Solves
 
-## The Problem
+Most coding agents share the same failure mode: they start typing before they understand the problem.
 
-Say "add user authentication." The agent ships 400 lines of plausible code—wrong session strategy, ignored patterns, zero tests. The model isn't the bottleneck. The process is.
+You say "add user authentication." The agent creates files, wires middleware, adds dependencies, and produces 400 lines of plausible-looking code. Then you discover it picked the wrong session strategy, ignored your existing auth patterns, and wrote zero tests.
 
-Built by [Jesse Vincent (obra)](https://github.com/obra), Superpowers loads **skills**: markdown files with hard gates and enforced workflows. The TDD skill deletes code written before tests. The brainstorming skill blocks implementation until you approve a design. Default prompts inform; Superpowers skills enforce.
+The model is not the bottleneck. The process is.
 
-## Default Workflow vs Superpowers
+Superpowers — built by [Jesse Vincent (obra)](https://github.com/obra) — treats agent behavior as an engineering problem. Instead of hoping the model "knows" good practices, it loads **skills**: markdown instruction files with hard gates, checklists, and enforced workflows. Skills are not suggestions. The TDD skill says delete code written before tests. The brainstorming skill blocks implementation until you approve a design.
 
-![Default AI Coding Workflow vs Superpowers — Prompt to Code to Hope compared with an eight-step Superpowers pipeline](/images/blog/obra-superpowers-workflow.svg)
+Think of it as the difference between a speed limit sign and a speed bump. Default agent prompts inform. Superpowers skills enforce.
 
-| | Coding Agent | Agent + Superpowers |
+## Traditional Agent vs Superpowers
+
+![Traditional Agent vs Superpowers workflow — Prompt to Code to Hope compared with an eight-step Superpowers pipeline](/images/blog/obra-superpowers-workflow.svg)
+
+*Edit source: [`obra-superpowers-workflow.drawio`](/diagrams/obra-superpowers-workflow.drawio)*
+
+## Cursor Agent vs Cursor + Superpowers
+
+| Feature | Cursor Agent | Cursor + Superpowers |
 |---|---|---|
 | **Planning** | Optional | Required |
 | **TDD** | No | Yes |
+| **Spec generation** | Manual | Automatic |
 | **Reviews** | Manual | Built-in |
+| **Debugging** | Ad-hoc | Systematic |
 | **Large tasks** | Agent drift | Structured |
 
-Superpowers does not replace your editor or agent. It adds a process layer—the difference is whether the agent improvises or follows a defined engineering workflow.
+Superpowers does not replace Cursor. It adds a process layer on top of the same Agent chat — the difference is whether the agent improvises or follows a defined engineering workflow.
 
-## What It Is
+## What Superpowers Actually Is
 
-Superpowers bundles three things: a **skills library** (14+ composable `SKILL.md` files), **workflow orchestration** (skills activate in sequence by task type), and **platform adapters** (same skills in Cursor, Claude Code, Codex CLI, Gemini CLI, and others).
+Superpowers is three things bundled together:
 
-The core insight: **a skill is a process with enforcement**, not a prompt snippet. Skills are plain markdown with checklists, hard gates, and stop conditions—they load automatically when the agent detects feature work, bugfixes, or plan execution. Activation is not perfect; invoke a skill by name if the wrong one loads.
+| Component | What it does |
+|---|---|
+| **Skills library** | 14+ composable `SKILL.md` files (brainstorming, TDD, debugging, planning, code review) |
+| **Workflow orchestration** | Skills activate in sequence based on what you're doing |
+| **Platform adapters** | Same skills work in Cursor, Claude Code, Codex CLI, Gemini CLI, and others |
+
+Skills are plain markdown. Any agent that can read a skill file can follow it. The same skills work across Cursor, Claude Code, and Codex CLI without retraining your workflow.
+
+The core insight: **a skill is a process with enforcement**, not a prompt snippet. The TDD skill does not suggest writing tests first. It mandates red-green-refactor and instructs the agent to delete any code written before a failing test exists.
+
+### Why skills activate — and why that works
+
+Skills activate automatically when the agent detects a matching task type. That sounds like magic until you understand the mechanism.
+
+Each skill is a structured markdown file that encodes a workflow — checklists, hard gates, and explicit stop conditions. When the agent detects a matching task (feature work, bugfix, plan execution), it loads the skill into its working context. That changes behavior from free-form generation to following a defined engineering process. The brainstorming skill injects "ask before you code." The TDD skill injects "delete code written before tests." The debugging skill injects "find root cause before proposing fixes."
+
+Automatic activation is not perfect — you can always invoke a skill explicitly — but it removes the burden of remembering which process applies to which task.
 
 ## Installation
 
-Start with the [platform install guides](https://obra-superpowers.mintlify.app). **Cursor** — use agent chat, not inline completions:
+Use **Agent chat** (`Ctrl+L` / `Cmd+L`), not Composer or inline completions.
 
 ```text
 /plugin-add superpowers
 ```
 
-Restart the session, then verify with `Do you have superpowers?` The agent should list available skills.
+Restart Agent chat, then verify:
 
-## The Workflow
+```text
+Do you have superpowers?
+```
+
+Done. The agent should confirm and list available skills. To update: `/plugin-update superpowers`. Troubleshooting: [Cursor install guide](https://obra-superpowers.mintlify.app/installation/cursor).
+
+## The Superpowers Workflow
 
 Superpowers replaces "ask and pray" with a pipeline. Each phase has a skill, a deliverable, and a gate you control.
 
-![The Superpowers Workflow — six-phase pipeline from brainstorming through merge with confidence](/images/blog/obra-superpowers-timeline.png)
+![Superpowers session workflow — User through Brainstorm, Approve, Plan, Task, Test, Implementation, Review, Deploy](/images/blog/obra-superpowers-session-flow.svg)
 
-1. **Brainstorming** — design spec to `docs/superpowers/specs/`; you approve before code starts
-2. **Writing plans** — 2–5 minute tasks with file paths, tests, and verification steps
-3. **TDD** — no production code without a failing test first (RED → GREEN → REFACTOR)
-4. **Subagent execution** — fresh subagent per task, two-stage review (spec compliance, then code quality)
-5. **Debug & verification** — root cause before fixes; real commands before calling it done
+*Edit source: [`obra-superpowers-session-flow.drawio`](/diagrams/obra-superpowers-session-flow.drawio)*
 
-Optional: isolated Git worktree for feature development away from main.
+**Brainstorming** runs before any feature work. The agent explores your project, asks clarifying questions one at a time, proposes 2–3 approaches, and writes a spec to `docs/superpowers/specs/`. No implementation until you approve — not even for "simple" tasks.
+
+**Writing plans** breaks approved specs into bite-sized tasks (2–5 minutes each), each specifying files, tests, and expected output. Plans save to `docs/superpowers/plans/` with enough detail that a subagent can execute without improvising.
+
+**TDD** enforces one iron law: no production code without a failing test first. RED → verify failure → GREEN → verify pass → REFACTOR → commit. Wrote code before the test? Delete it. Start over.
+
+For larger work, **subagent-driven-development** runs the plan task by task with two-stage review. On a 12-task portfolio feature, all tasks completed in one session without drifting from the approved spec.
+
+When things break, **systematic-debugging** mandates root-cause investigation before fixes. **verification-before-completion** runs real commands before claiming done.
 
 ## Teams, Not Just Individuals
 
+For architects and tech leads, the value is not only personal productivity — it is **team consistency**.
+
 ![Team workflow without vs with Superpowers — shared skills lead to predictable code reviews](/images/blog/obra-superpowers-team-flow.svg)
 
-Without Superpowers, each engineer prompts differently—big-bang implementations, skipped tests under pressure, code review as process negotiation. With it, everyone runs the same skills. Specs and plans live in the repo. Onboarding means pointing at the skills library, not re-explaining your prompting style.
+*Edit source: [`obra-superpowers-team-flow.drawio`](/diagrams/obra-superpowers-team-flow.drawio)*
+
+Without Superpowers, each engineer prompts differently. Developer A favors big-bang implementations. Developer B skips tests under deadline pressure. Code review becomes a negotiation about process, not just code quality.
+
+With Superpowers, every engineer runs the same skills — same brainstorming gate, same plan format, same TDD cycle, same verification step. Specs and plans live in the repo. Reviewers know what to expect. Onboarding a new team member means pointing them at the skills library, not re-explaining your personal prompting style.
+
+That positions Superpowers as a **team engineering standard**, not a personal hack.
+
+## How to Use It Effectively
+
+Start with design intent, not implementation. "Add a contact form" produces immediate file edits. "Let's design a contact form with server-side validation and no third-party services" triggers brainstorming.
+
+Approve designs explicitly — say "approved" or push back. Commit specs and plans to the repo; they become context for future sessions.
+
+When stuck, process skills win: "Let's build X" → brainstorm first. "Fix this bug" → debug first. User instructions always override — say "this is a throwaway spike" if you genuinely need to skip the workflow. Use Agent chat (`Ctrl+L`), not Composer.
 
 ## Example: Building Authentication
 
-Same prompt, same repo, same afternoon — with and without Superpowers on a Next.js app:
+Same prompt, same repo, same afternoon — with and without Superpowers. Numbers from my own session on a Next.js app with existing middleware patterns.
 
 | | Without Superpowers | With Superpowers |
 |---|---|---|
 | **Lines changed** | ~450 | ~110 |
 | **Tests** | 0 | 18 |
-| **Session strategy** | Wrong JWT, ignored existing cookie pattern | Locked in design spec before files changed |
+| **JWT strategy** | Wrong — stateless JWT, ignored existing session cookie | Matched existing pattern, locked in design spec |
 | **Time to mergeable PR** | ~2 hours of rework | First PR merged after review |
 
-Brainstorming surfaced the cookie-vs-JWT question before any files changed. TDD produced 18 tests. Review was diff-sized, not archaeology.
+Without Superpowers, the agent started coding immediately. Plausible output, wrong architecture, no tests — rework dominated the session.
 
-## Who Should Use Superpowers?
+With Superpowers, brainstorming surfaced the session strategy question before any files changed. The spec locked cookie vs JWT, middleware scope, and test coverage. TDD produced 18 tests across auth middleware, token refresh, and protected routes. Review was diff-sized, not archaeology.
 
-For work where **process quality determines outcome quality**—not one-line fixes or inline completions.
+That gap — 450 lines of fix-it vs 110 lines of ship-it — is what "less rework" actually means.
 
-| You | Why it fits |
-|---|---|
-| **Solo dev shipping features** | Catches architecture mistakes before files change |
-| **Tech lead / architect** | Specs in repo = shared standard, not personal prompting |
-| **Team on agent chat daily** | Same skills across platforms, predictable reviews |
-| **Dev burned by agent rework** | Gates exist if you rewrote plausible code last session |
+## Current Limitations
 
-**Skip it when:** throwaway spike (say so explicitly), no test infrastructure yet, or a typo fix. Superpowers is composable—you do not need every phase on every task.
+Superpowers is not a silver bullet. Be honest about what it does not do:
 
-**Start with design intent** — "Let's design a contact form with server-side validation," not "Add a contact form."
+- **Does not replace engineering judgment.** Skills enforce process; you still decide architecture, trade-offs, and what ships.
+- **TDD requires an existing test framework.** If the project has no tests, set up infrastructure first — or the TDD skill will fight you.
+- **Can feel heavy for rapid prototypes.** A throwaway spike does not need a full design spec. Say so explicitly.
+- **Learning curve for first-time users.** The first session feels like more process. The payoff shows up on session three.
+- **Automatic activation is not perfect.** If the wrong skill loads — or none loads — restart the session or invoke the skill by name.
 
-**Approve explicitly** — say "approved" or push back before code starts.
-
-**Commit specs and plans** — they become context for future sessions.
-
-## Limitations
-
-- Skills enforce process; you still decide architecture and what ships
-- TDD needs an existing test framework—set up infrastructure first
-- First session feels heavy; payoff shows up around session three
-- Automatic activation is imperfect—restart or invoke by name
+One-line typo fixes and inline completions do not need Superpowers. The ceremony pays off on features that matter.
 
 ## Conclusion
 
-The model was never the bottleneck. The process was. Superpowers makes the session **accountable**: a spec you approved, tests before production code, verification before "done."
+Obra Superpowers does not make your agent smarter. It makes your agent **more disciplined**. Install it with `/plugin-add superpowers`, start feature work with design intent, approve specs before code, and let TDD run at least once on something that matters.
 
-That's why one authentication feature ended at ~110 lines with 18 tests instead of ~450 lines of rework. The workflow didn't make the model smarter—it made the engineering process harder to skip.
-
-The agents are already capable enough. What most of us lack is the discipline to make them prove it.
+The first session feels like more process. The third session produces code you actually want to merge.
 
 ## Further Reading
 
 - [Superpowers GitHub repository](https://github.com/obra/superpowers) — source, issues, and skill library
 - [Official documentation](https://obra-superpowers.mintlify.app) — quickstart, skills overview, platform guides
+- [Install on Cursor](https://obra-superpowers.mintlify.app/installation/cursor) — troubleshooting and platform notes
 - [Test-Driven Development skill](https://github.com/obra/superpowers/tree/main/skills/test-driven-development) — the iron law, explained in detail
