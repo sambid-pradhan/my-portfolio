@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPosts } from "@/utils/utils";
+import { getWorkProjects } from "@/utils/utils";
 import {
   Meta,
   Schema,
@@ -21,11 +21,10 @@ import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
 import { Projects } from "@/components/work/Projects";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "work", "projects"]);
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  return [];
 }
 
 export async function generateMetadata({
@@ -38,7 +37,7 @@ export async function generateMetadata({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  const posts = getPosts(["src", "app", "work", "projects"]);
+  const posts = getWorkProjects();
   let post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
@@ -62,7 +61,7 @@ export default async function Project({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
+  let post = getWorkProjects().find((post) => post.slug === slugPath);
 
   if (!post) {
     notFound();
@@ -74,7 +73,8 @@ export default async function Project({
     })) || [];
 
   return (
-    <Column as="section" maxWidth="m" horizontal="center" gap="l">
+    <div className="work-post-layout">
+      <Column as="section" className="work-post-main" maxWidth="m" horizontal="center" gap="l">
       <Schema
         as="blogPosting"
         baseURL={baseURL}
@@ -132,6 +132,7 @@ export default async function Project({
         <Projects exclude={[post.slug]} range={[2]} />
       </Column>
       <ScrollToHash />
-    </Column>
+      </Column>
+    </div>
   );
 }

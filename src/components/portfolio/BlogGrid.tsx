@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { formatDate } from "@/utils/formatDate";
+import { getTagBadge } from "./blogBadge";
 
 type BlogPost = {
   slug: string;
@@ -15,15 +16,6 @@ type BlogPost = {
 };
 
 const THUMBS = ["bt1", "bt2", "bt3", "bt4", "bt5", "bt6"] as const;
-const TAG_ICONS: Record<string, string> = {
-  "Developer Tools": "🛠️",
-  "Agentic AI": "🤖",
-  LLMOps: "⚙️",
-  Architecture: "🏗️",
-  "RAG Systems": "🧠",
-  "ML Engineering": "📊",
-  "Career & Leadership": "🚀",
-};
 
 function estimateReadMinutes(content: string) {
   const words = content
@@ -55,6 +47,7 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
       <div className="blog-grid">
         {posts.map((post, index) => {
           const thumbSrc = post.metadata.thumbnail || post.metadata.image;
+          const badge = getTagBadge(post.metadata.tag);
           return (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
             <div
@@ -63,7 +56,9 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
               {thumbSrc ? (
                 <img src={thumbSrc} alt="" />
               ) : (
-                TAG_ICONS[post.metadata.tag ?? ""] ?? "📝"
+                <span className={badge.className} aria-hidden="true">
+                  {badge.label}
+                </span>
               )}
             </div>
             <div className="blog-body">

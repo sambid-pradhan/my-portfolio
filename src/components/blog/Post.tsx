@@ -3,6 +3,7 @@
 import { Card, Column, Media, Row, Avatar, Text } from "@once-ui-system/core";
 import { formatDate } from "@/utils/formatDate";
 import { person } from "@/resources";
+import { getTagBadge } from "@/components/portfolio/blogBadge";
 
 interface PostProps {
   post: any;
@@ -11,6 +12,9 @@ interface PostProps {
 }
 
 export default function Post({ post, thumbnail, direction }: PostProps) {
+  const thumbSrc = post.metadata.thumbnail || post.metadata.image;
+  const badge = getTagBadge(post.metadata.tag);
+
   return (
     <Card
       fillWidth
@@ -25,17 +29,24 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
       gap={direction === "column" ? undefined : "24"}
       s={{ direction: "column" }}
     >
-      {post.metadata.image && thumbnail && (
+      {thumbSrc && thumbnail && (
         <Media
           priority
           sizes="(max-width: 768px) 100vw, 640px"
           border="neutral-alpha-weak"
           cursor="interactive"
           radius="l"
-          src={post.metadata.image}
+          src={thumbSrc}
           alt={"Thumbnail of " + post.metadata.title}
           aspectRatio="16 / 9"
         />
+      )}
+      {!thumbSrc && thumbnail && (
+        <div className="related-post-thumb">
+          <span className={badge.className} aria-hidden="true">
+            {badge.label}
+          </span>
+        </div>
       )}
       <Row fillWidth>
         <Column maxWidth={28} paddingY="24" paddingX="l" gap="20" vertical="center">

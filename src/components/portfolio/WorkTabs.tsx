@@ -1,7 +1,38 @@
 "use client";
 
+import Link from "next/link";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { clientProjects, hobbyProjects } from "./siteContent";
+
+function CardLink({
+  href,
+  className,
+  children,
+}: {
+  href?: string;
+  className: string;
+  children: ReactNode;
+}) {
+  if (!href) return <div className={className}>{children}</div>;
+  if (href.startsWith("http") || href.startsWith("mailto:")) {
+    return (
+      <a
+        href={href}
+        className={`${className} is-link`}
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noreferrer" : undefined}
+      >
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={`${className} is-link`}>
+      {children}
+    </Link>
+  );
+}
 
 export function WorkTabs() {
   const [tab, setTab] = useState<"client" | "hobby">("client");
@@ -41,7 +72,7 @@ export function WorkTabs() {
         <div className={`work-section${tab === "client" ? " is-active" : ""}`} id="tab-client">
           <div className="projects-grid">
             {clientProjects.map((p) => (
-              <div key={p.title} className="project-card">
+              <CardLink key={p.title} href={p.href} className="project-card">
                 <div className={`project-accent pa-${p.accent}`}>
                   <div>
                     <div className="project-client">{p.client}</div>
@@ -58,9 +89,12 @@ export function WorkTabs() {
                       </span>
                     ))}
                   </div>
-                  <div className="impact-bar">💡 {p.impact}</div>
+                  <div className="impact-bar">
+                    <span className="impact-label">Impact</span>
+                    {p.impact}
+                  </div>
                 </div>
-              </div>
+              </CardLink>
             ))}
           </div>
         </div>
@@ -72,8 +106,10 @@ export function WorkTabs() {
           </p>
           <div className="hobby-grid">
             {hobbyProjects.map((h) => (
-              <div key={h.title} className="hobby-card">
-                <div className={`hobby-thumb ${h.thumb}`}>{h.icon}</div>
+              <CardLink key={h.title} href={h.href} className="hobby-card">
+                <div className={`hobby-thumb ${h.thumb}`}>
+                  <span className="hobby-thumb-label">{h.title.slice(0, 1)}</span>
+                </div>
                 <div className="hobby-body">
                   <div className={`hobby-badge ${h.badge}`}>{h.badgeText}</div>
                   <div className="hobby-title">{h.title}</div>
@@ -86,7 +122,7 @@ export function WorkTabs() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </CardLink>
             ))}
           </div>
         </div>

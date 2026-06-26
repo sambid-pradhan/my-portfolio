@@ -1,4 +1,4 @@
-import { getPosts } from "@/utils/utils";
+import { getPublicBlogPosts } from "@/utils/utils";
 import { Grid } from "@once-ui-system/core";
 import Post from "./Post";
 
@@ -17,7 +17,7 @@ export function Posts({
   exclude = [],
   direction,
 }: PostsProps) {
-  let allBlogs = getPosts(["src", "app", "blog", "posts"]);
+  let allBlogs = getPublicBlogPosts();
 
   // Exclude by slug (exact match)
   if (exclude.length) {

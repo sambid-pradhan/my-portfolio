@@ -24,6 +24,9 @@ type Metadata = {
 
 import { notFound } from "next/navigation";
 
+export const BLOG_POSTS_PATH = ["src", "app", "blog", "posts"];
+export const WORK_PROJECTS_PATH = ["src", "app", "work", "projects"];
+
 function getMDXFiles(dir: string) {
   if (!fs.existsSync(dir)) {
     notFound();
@@ -48,7 +51,7 @@ function readMDXFile(filePath: string) {
     image: data.image || "",
     thumbnail: data.thumbnail || "",
     images: data.images || [],
-    tag: data.tag || [],
+    tag: data.tag || "",
     team: data.team || [],
     link: data.link || "",
   };
@@ -73,4 +76,22 @@ function getMDXData(dir: string) {
 export function getPosts(customPath = ["", "", "", ""]) {
   const postsDir = path.join(process.cwd(), ...customPath);
   return getMDXData(postsDir);
+}
+
+export type MDXPost = ReturnType<typeof getPosts>[number];
+
+export function isPublicBlogPost(post: MDXPost) {
+  return post.metadata.tag !== "Magic Portfolio";
+}
+
+export function getBlogPosts() {
+  return getPosts(BLOG_POSTS_PATH);
+}
+
+export function getPublicBlogPosts() {
+  return getBlogPosts().filter(isPublicBlogPost);
+}
+
+export function getWorkProjects() {
+  return getPosts(WORK_PROJECTS_PATH);
 }

@@ -66,6 +66,7 @@ export type Project = {
   client: string;
   title: string;
   role: string;
+  href?: string;
   accent: "navy" | "coral" | "blue" | "dark";
   description: string;
   tech: string[];
@@ -118,9 +119,8 @@ export const clientProjects: Project[] = [
 export const hobbyProjects = [
   {
     thumb: "ht-teal",
-    icon: "📄",
     badge: "badge-live",
-    badgeText: "🔨 In Progress",
+    badgeText: "In Progress",
     title: "ContractLens — AI Contract Key Term Extractor",
     description:
       "Upload any contract PDF and instantly extract key terms — parties, dates, obligations, penalties, renewal clauses, and governing law — powered by LLM document intelligence.",
@@ -128,7 +128,6 @@ export const hobbyProjects = [
   },
   {
     thumb: "ht-coming",
-    icon: "💡",
     badge: "badge-soon",
     badgeText: "Coming Soon",
     title: "Your Next Project Here",
@@ -138,69 +137,12 @@ export const hobbyProjects = [
   },
   {
     thumb: "ht-coming",
-    icon: "🚀",
     badge: "badge-soon",
     badgeText: "Ideas Stage",
     title: "Got an idea? Let's build it.",
+    href: "mailto:sambid9988@gmail.com",
     description:
       "Open to collaborating on interesting side projects. If you have a problem worth solving with AI, reach out — I'm always up for a good conversation.",
     tags: ["Open to collab"],
-  },
-];
-
-export const blogPosts = [
-  {
-    thumb: "bt1",
-    icon: "🤖",
-    cat: "Agentic AI",
-    title: "Why Temporal is the Missing Piece in Agentic AI Workflows",
-    excerpt:
-      "Most LLM orchestration breaks under real-world conditions. Here's how Temporal's durable execution model changes everything for long-running agents.",
-    read: "5 min read",
-  },
-  {
-    thumb: "bt2",
-    icon: "⚙️",
-    cat: "LLMOps",
-    title: "LangSmith + Dynatrace: Full-Stack Observability for Production LLMs",
-    excerpt:
-      'What does "observability" actually mean when your system is an LLM making decisions? A practical guide from a production deployment.',
-    read: "7 min read",
-  },
-  {
-    thumb: "bt3",
-    icon: "🏗️",
-    cat: "Architecture",
-    title: "Building a Custom RPA Platform with LangGraph: Lessons from the Field",
-    excerpt:
-      "We replaced enterprise RPA with a fully custom agentic automation engine. Here's the architecture, the tradeoffs, and what we'd do differently.",
-    read: "10 min read",
-  },
-  {
-    thumb: "bt4",
-    icon: "🧠",
-    cat: "RAG Systems",
-    title: "In-Scope Learning: How to Keep Your RAG System Grounded",
-    excerpt:
-      "Hallucination isn't just a model problem — it's an architecture problem. How we constrained a healthcare chatbot to only what it should know.",
-    read: "6 min read",
-  },
-  {
-    thumb: "bt5",
-    icon: "📊",
-    cat: "ML Engineering",
-    title: "From Notebook to Production: The ML Pipeline Stack That Actually Works",
-    excerpt:
-      "MLflow, Azure ML Pipelines, and Optuna — how I set up reproducible, monitored, and scalable model training for enterprise clients.",
-    read: "8 min read",
-  },
-  {
-    thumb: "bt6",
-    icon: "🚀",
-    cat: "Career & Leadership",
-    title: "From Data Analyst to GenAI Architect: What Changed and What Didn't",
-    excerpt:
-      "Eight years of lessons on how AI engineering has evolved — and why good systems thinking never goes out of style.",
-    read: "5 min read",
   },
 ];
