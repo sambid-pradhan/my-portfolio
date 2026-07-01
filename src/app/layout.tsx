@@ -2,23 +2,9 @@ import "@/resources/custom.css";
 import "@/components/portfolio/portfolio.css";
 
 import { Meta } from "@once-ui-system/core";
-import { Fraunces, DM_Sans } from "next/font/google";
 import { PortfolioLayout } from "@/components/portfolio";
 import { Providers } from "@/components";
 import { baseURL, home } from "@/resources";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -30,7 +16,7 @@ export async function generateMetadata() {
   });
 }
 
-const themeInitScript = `(function(){try{var t=localStorage.getItem("portfolio-theme");if(t==="dark"||t==="night")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();`;
+const themeInitScript = `(function(){try{var h=new Date().getHours();var t=h>=7&&h<18?"light":h>=18&&h<22?"dark":"night";localStorage.setItem("portfolio-theme",t);localStorage.removeItem("portfolio-theme-mode");document.documentElement.setAttribute("data-portfolio-theme",t);document.documentElement.setAttribute("data-theme",t==="night"?"dark":t);}catch(e){}})();`;
 
 // Turbopack dev-only: React RSC perf instrumentation can throw on notFound() (vercel/next.js#86060)
 const devPerfPatchScript =
@@ -40,7 +26,7 @@ const devPerfPatchScript =
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${dmSans.variable}`} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript + devPerfPatchScript }} />
       </head>

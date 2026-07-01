@@ -35,39 +35,11 @@ const display: DisplayConfig = {
 const protectedRoutes: ProtectedRoutesConfig = {
 };
 
-// Import and set font for each variant
-import { Geist } from "next/font/google";
-import { Geist_Mono } from "next/font/google";
-
-const heading = Geist({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const body = Geist({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const label = Geist({
-  variable: "--font-label",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const code = Geist_Mono({
-  variable: "--font-code",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 const fonts: FontsConfig = {
-  heading: heading,
-  body: body,
-  label: label,
-  code: code,
+  heading: '"Fraunces", Georgia, "Times New Roman", serif',
+  body: '"DM Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif',
+  label: '"DM Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif',
+  code: 'ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace',
 };
 
 // default customization applied to the HTML in the main layout.tsx

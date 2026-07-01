@@ -68,6 +68,15 @@
   /*
 }*/
 
+:root {
+  --font-dm-sans: "DM Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-fraunces: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-heading: var(--font-fraunces);
+  --font-body: var(--font-dm-sans);
+  --font-label: var(--font-dm-sans);
+  --font-code: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+
 .mdx-table-wrap {
   overflow-x: auto;
   margin: 1rem 0 1.5rem;
@@ -124,6 +133,12 @@
   padding-top: 1.5rem;
 }
 
+.blog-post-title {
+  font-family: var(--font-heading), Fraunces, Georgia, "Times New Roman", serif;
+  color: var(--teal-dark);
+  letter-spacing: 0;
+}
+
 .blog-post-layout a:not(.button) {
   color: var(--teal-dark);
   text-decoration: none;
@@ -136,6 +151,34 @@
 
 .blog-post-article {
   width: 100%;
+  font-family: var(--font-body), "DM Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text);
+}
+
+.blog-post-article,
+.blog-post-article p,
+.blog-post-article li,
+.blog-post-article blockquote,
+.blog-post-article table,
+.blog-post-article figcaption {
+  font-family: var(--font-body), "DM Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.blog-post-article h1,
+.blog-post-article h2,
+.blog-post-article h3,
+.blog-post-article h4,
+.blog-post-article h5,
+.blog-post-article h6,
+.blog-post-article [role="heading"] {
+  font-family: var(--font-heading), Fraunces, Georgia, "Times New Roman", serif;
+  color: var(--teal-dark);
+  letter-spacing: 0;
+}
+
+.blog-post-article code,
+.blog-post-article pre {
+  font-family: var(--font-code);
 }
 
 /* ── ToC card ── */
