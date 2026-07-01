@@ -1,0 +1,265 @@
+---
+title: "Loop Engineering: How to Actually Set One Up in Claude Code or Codex"
+description: "A practical, primitive-by-primitive guide to building your first agent loop, with real commands for both Claude Code and Codex."
+summary: "A practical guide to building your first agent loop with one state file, one prompt, one verifier, and a clear stop condition."
+publishedAt: "2026-06-27"
+tag: "AI Engineering"
+image: "/images/blog/loop-engineering-cover.png"
+thumbnail: "/images/blog/loop-engineering-cover.png"
+---
+
+# Loop Engineering: How to Actually Set One Up in Claude Code or Codex
+
+## TL;DR
+
+Loop engineering is just this: stop asking the agent to do everything in one shot. Instead, build a small loop that:
+
+1. reads the current state,
+2. asks the agent for one bounded change,
+3. verifies the result,
+4. records what happened,
+5. repeats only if the check passes.
+
+If you are using Claude Code or Codex, you already have the primitives you need. You do not need a giant autonomous system to start. You need one state file, one prompt, one verifier, and one place to run it safely.
+
+## What You Should Build First
+
+Before we talk about theory, here is the smallest useful loop:
+
+- a `state.md` file that says what is done and what is next
+- a prompt file that asks the agent to make one change
+- a verifier script that runs tests
+- a worktree so the agent does not write into your main checkout
+- a scheduler so the loop can run again without you retyping everything
+
+If the loop cannot answer "what changed?", "did it pass?", and "what happens next?", it is not ready.
+
+## The Folder Layout
+
+Start with a tiny, boring structure:
+
+```text
+project/
+  docs/
+    loop/
+      state.md
+      prompt.md
+      verify.sh
+  .github/
+    workflows/
+      loop.yml
+```
+
+If you use Claude Code or Codex skill files, add them beside the loop:
+
+```text
+project/
+  .claude/
+    agents/
+      loop-reviewer.md
+  .codex/
+    agents/
+      loop-reviewer.toml
+```
+
+The exact tool format can differ, but the job stays the same: keep the rules close to the repo.
+
+## Step 1: Write the State File
+
+Do not start with prompts. Start with state. A state file makes the loop inspectable.
+
+```md
+# Loop State
+
+## Goal
+Finish the current task without breaking tests.
+
+## Done
+- [x] Identify the problem
+
+## In Progress
+- [ ] Implement the smallest safe change
+
+## Next
+- [ ] Run tests
+- [ ] Review diff
+- [ ] Commit or stop
+```
+
+This looks simple on purpose. The point is not cleverness. The point is that the next run can read it and continue.
+
+## Step 2: Write One Prompt
+
+Keep the prompt short and concrete. Give the agent one job and one stopping condition.
+
+```md
+You are working in a clean worktree.
+
+Your job:
+- make the smallest change that fixes the issue
+- do not refactor unrelated code
+- update the state file when you finish
+
+Stop when:
+- the code change is complete
+- tests pass
+- the diff is small enough to review in one pass
+
+If you need more information, write it to docs/loop/state.md and stop.
+```
+
+This is much more useful than asking the model to "improve the system." It gives the agent a boundary.
+
+## Step 3: Add a Verifier
+
+The verifier should be a command you trust more than the model's opinion.
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+npm test
+npm run lint
+```
+
+If your project uses something else, swap in the real commands:
+
+- `pytest`
+- `cargo test`
+- `pnpm test`
+- `npm run test:unit`
+
+The important part is that the verifier is deterministic. The agent should not decide whether it passed.
+
+## Step 4: Put the Agent in a Worktree
+
+Use a separate checkout so the loop cannot damage your main branch by accident.
+
+```bash
+git worktree add ../project-loop-loop-1
+cd ../project-loop-loop-1
+```
+
+Now the agent can make changes in isolation. If you want to run multiple passes, give each pass its own worktree.
+
+For Claude Code or Codex, this is the right place to run the loop prompt. The agent writes code, the verifier checks it, and the state file tracks the result.
+
+## Step 5: Run the Loop Once by Hand
+
+Do not automate it yet. Run it once manually so you can see what it actually does.
+
+Example flow:
+
+```text
+1. Read docs/loop/state.md
+2. Apply docs/loop/prompt.md
+3. Make one code change
+4. Run docs/loop/verify.sh
+5. If tests fail, write the failure back to docs/loop/state.md
+6. If tests pass, update docs/loop/state.md and stop
+```
+
+That is the loop. The automation comes later.
+
+## Step 6: Automate It
+
+Once the manual pass works, schedule it.
+
+Example GitHub Actions workflow:
+
+```yaml
+name: loop-engineering
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 9 * * 1-5"
+
+jobs:
+  run-loop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run verifier
+        run: bash docs/loop/verify.sh
+```
+
+If your setup uses a native automation feature in Claude Code or Codex, the same idea applies:
+
+- trigger on a schedule or a goal
+- read the state file
+- run one bounded task
+- verify
+- update state
+
+## Step 7: Add a Review Step
+
+One model should not grade its own homework. Add a separate reviewer or a human review gate.
+
+Good review questions:
+
+- Did the change stay small?
+- Did it touch only the intended files?
+- Did the verifier actually run?
+- Is there any follow-up work left?
+
+If the answer is unclear, do not let the loop pretend it is done.
+
+## What Makes This Practical
+
+This is where a lot of loop-engineering talk gets too abstract. A practical loop has these traits:
+
+- it changes one thing at a time
+- it leaves a trail in a state file
+- it uses real tests instead of vibes
+- it can fail safely
+- it can be restarted without guessing where it left off
+
+If you cannot restart it tomorrow and understand what happened yesterday, the loop is too fuzzy.
+
+## Example: A Simple Bugfix Loop
+
+Say a bug report says the app crashes when a date is missing. A practical loop would do this:
+
+1. Read the bug from the state file.
+2. Ask the agent to reproduce the bug.
+3. Make the smallest fix.
+4. Run the test that covers the crash.
+5. Update the state file with the result.
+6. Stop.
+
+That is much better than telling the agent, "fix the bug and clean up the codebase."
+
+## What Not To Do
+
+Do not start with:
+
+- full autonomy
+- multi-agent orchestration
+- endless retries
+- vague success criteria
+- no verifier
+
+Those are expensive ways to feel busy.
+
+Start with a small loop around one task that already hurts.
+
+## Conclusion
+
+Loop engineering is useful when it becomes a repeatable workflow, not a slogan.
+
+The practical version is simple:
+
+- one state file
+- one prompt
+- one verifier
+- one worktree
+- one clear stop condition
+
+If you can run that loop by hand, you can automate it. If you cannot run it by hand, automation will only make the confusion faster.
+
+## Further Reading
+
+- [Obra Superpowers: A Disciplined Workflow for AI Coding Agents](/blog/obra-superpowers)
+- [Stop Testing Your AI Manually: Build an AI Regression Suite with Promptfoo](/blog/ai-regression-suite-promptfoo)
+- [Cursor, Codex, and Claude Code: An AI Engineer's Workflow Guide](/blog/cursor-vs-codex-vs-claude)

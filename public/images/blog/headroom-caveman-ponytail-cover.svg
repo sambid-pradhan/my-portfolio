@@ -1,0 +1,39 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="80" x2="1480" y2="840" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1D1A"/>
+      <stop offset="1" stop-color="#1E2D27"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="360" y1="220" x2="1240" y2="680" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1B3B35"/>
+      <stop offset="1" stop-color="#132724"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="420" y1="250" x2="1180" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F97316"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="250" cy="170" r="130" fill="#22443D" opacity="0.5"/>
+  <circle cx="1360" cy="760" r="190" fill="#16302B" opacity="0.65"/>
+  <rect x="110" y="140" width="1380" height="620" rx="44" fill="url(#panel)" stroke="#33554E" stroke-width="2"/>
+  <rect x="160" y="190" width="360" height="120" rx="26" fill="#0F221E" stroke="#3E625B" stroke-width="2"/>
+  <rect x="620" y="190" width="360" height="120" rx="26" fill="#0F221E" stroke="#3E625B" stroke-width="2"/>
+  <rect x="1080" y="190" width="360" height="120" rx="26" fill="#0F221E" stroke="#3E625B" stroke-width="2"/>
+  <circle cx="340" cy="250" r="30" fill="#7C8F8A"/>
+  <circle cx="800" cy="250" r="30" fill="#F97316"/>
+  <circle cx="1260" cy="250" r="30" fill="#94A3B8"/>
+  <text x="340" y="260" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#E5E7EB">H</text>
+  <text x="800" y="260" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#111827">C</text>
+  <text x="1260" y="260" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#111827">P</text>
+  <text x="800" y="430" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="700" fill="#F3F4F6">
+    Headroom vs Caveman vs Ponytail
+  </text>
+  <text x="800" y="492" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#C9D6D2">
+    Different layers of the AI agent stack
+  </text>
+  <rect x="560" y="560" width="480" height="74" rx="22" fill="url(#accent)" opacity="0.92"/>
+  <text x="800" y="607" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#0F172A">
+    Compress input. Shape workflow. Minimize code.
+  </text>
+</svg>

@@ -1,0 +1,86 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5D8"/>
+      <stop offset="0.52" stop-color="#F8E8C2"/>
+      <stop offset="1" stop-color="#E6F2DF"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1248 172) rotate(90) scale(300)">
+      <stop stop-color="#FF9F7A" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#FF9F7A" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2" fill="#173936" fill-opacity="0.08"/>
+    </pattern>
+    <filter id="shadow" x="-18%" y="-22%" width="136%" height="150%">
+      <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#173936" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#dots)"/>
+  <rect width="1600" height="900" fill="url(#sun)"/>
+
+  <path d="M-80 744C168 646 342 694 542 742C752 792 930 836 1164 754C1358 686 1492 690 1684 764V900H-80V744Z" fill="#173936" fill-opacity="0.08"/>
+  <path d="M1180 86C1246 50 1324 49 1392 84C1464 122 1503 193 1494 264C1484 346 1415 398 1322 397C1230 396 1160 338 1147 259C1137 191 1116 121 1180 86Z" fill="#FFAF87" fill-opacity="0.28"/>
+
+  <g transform="translate(96 66)">
+    <rect x="0" y="0" width="340" height="50" rx="25" fill="#173936"/>
+    <text x="28" y="33" fill="#FFF5D8" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="800" letter-spacing="3">AGENT EFFICIENCY</text>
+  </g>
+
+  <g transform="translate(94 162)">
+    <text x="0" y="0" fill="#173936" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700">Three ways to</text>
+    <text x="0" y="94" fill="#173936" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700">waste fewer tokens</text>
+    <text x="4" y="158" fill="#54716C" font-family="Segoe UI, Arial, sans-serif" font-size="29" font-weight="650">Headroom trims reading. Caveman trims replies. Ponytail trims diffs.</text>
+  </g>
+
+  <g transform="translate(120 398)" filter="url(#shadow)">
+    <path d="M0 50C0 22.4 22.4 0 50 0H1340C1367.6 0 1390 22.4 1390 50V374C1390 401.6 1367.6 424 1340 424H50C22.4 424 0 401.6 0 374V50Z" fill="#FFFDF3"/>
+    <path d="M0 50C0 22.4 22.4 0 50 0H1340C1367.6 0 1390 22.4 1390 50V374C1390 401.6 1367.6 424 1340 424H50C22.4 424 0 401.6 0 374V50Z" stroke="#173936" stroke-opacity="0.13" stroke-width="2"/>
+
+    <g transform="translate(58 56)">
+      <rect x="0" y="0" width="346" height="300" rx="28" fill="#D0EDEA"/>
+      <text x="32" y="50" fill="#173936" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="900" letter-spacing="3">HEADROOM</text>
+      <text x="32" y="88" fill="#315B57" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">compress the input</text>
+
+      <g transform="translate(34 124)">
+        <rect x="0" y="0" width="272" height="18" rx="9" fill="#173936" fill-opacity="0.18"/>
+        <rect x="0" y="34" width="230" height="18" rx="9" fill="#173936" fill-opacity="0.18"/>
+        <rect x="0" y="68" width="294" height="18" rx="9" fill="#173936" fill-opacity="0.18"/>
+        <path d="M0 108H298" stroke="#173936" stroke-opacity="0.18" stroke-width="3"/>
+      </g>
+      <rect x="32" y="236" width="148" height="42" rx="21" fill="#173936"/>
+      <text x="54" y="264" fill="#FFF5D8" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">Read less</text>
+    </g>
+
+    <g transform="translate(514 56)">
+      <rect x="0" y="0" width="346" height="300" rx="28" fill="#FFB49F"/>
+      <text x="32" y="50" fill="#173936" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="900" letter-spacing="3">CAVEMAN</text>
+      <text x="32" y="88" fill="#673D35" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">compress the reply</text>
+
+      <g transform="translate(34 126)">
+        <path d="M0 28C0 12.5 12.5 0 28 0H248C263.5 0 276 12.5 276 28V76C276 91.5 263.5 104 248 104H96L58 139V104H28C12.5 104 0 91.5 0 76V28Z" fill="#FFF5D8"/>
+        <rect x="28" y="30" width="198" height="13" rx="6.5" fill="#173936" fill-opacity="0.18"/>
+        <rect x="28" y="60" width="142" height="13" rx="6.5" fill="#173936" fill-opacity="0.18"/>
+      </g>
+      <rect x="32" y="236" width="134" height="42" rx="21" fill="#173936"/>
+      <text x="54" y="264" fill="#FFF5D8" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">Say less</text>
+    </g>
+
+    <g transform="translate(970 56)">
+      <rect x="0" y="0" width="346" height="300" rx="28" fill="#173936"/>
+      <text x="32" y="50" fill="#FFF5D8" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="900" letter-spacing="3">PONYTAIL</text>
+      <text x="32" y="88" fill="#B9DED6" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700">compress the diff</text>
+
+      <g transform="translate(34 124)">
+        <rect x="0" y="0" width="278" height="90" rx="18" fill="#FFF5D8" fill-opacity="0.13"/>
+        <text x="26" y="37" fill="#FFB49F" font-family="Consolas, 'Courier New', monospace" font-size="25" font-weight="800">- big rewrite</text>
+        <text x="26" y="72" fill="#FFB49F" font-family="Consolas, 'Courier New', monospace" font-size="25" font-weight="800">- maybe later</text>
+        <path d="M23 118H270" stroke="#FFF5D8" stroke-opacity="0.22" stroke-width="3"/>
+      </g>
+      <rect x="32" y="236" width="150" height="42" rx="21" fill="#FFF5D8"/>
+      <text x="54" y="264" fill="#173936" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">Write less</text>
+    </g>
+  </g>
+</svg>

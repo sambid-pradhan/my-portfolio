@@ -63,7 +63,7 @@
   --page-gutter: clamp(1.25rem, 4vw, 3rem);
 }
 
-[data-theme="dark"] {
+[data-portfolio-theme="dark"] {
   color-scheme: dark;
   --cream: #1a2e2c;
   --cream2: #152522;
@@ -107,7 +107,7 @@
   --grad-teal-mid: linear-gradient(135deg, #1a2e2c, #2a4a45);
 }
 
-[data-theme="night"] {
+[data-portfolio-theme="night"] {
   color-scheme: dark;
   --cream: #0a0f0e;
   --cream2: #0f1514;

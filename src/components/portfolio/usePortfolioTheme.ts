@@ -2,19 +2,19 @@
 
 import { useCallback, useEffect, useState } from "react";
 import {
-  isPortfolioTheme,
+  getPortfolioThemeForHour,
   PORTFOLIO_THEME_STORAGE_KEY,
   type PortfolioTheme,
 } from "./portfolioTheme";
 
-function readStoredTheme(): PortfolioTheme {
+function getDefaultTheme(): PortfolioTheme {
   if (typeof window === "undefined") return "light";
-  const stored = localStorage.getItem(PORTFOLIO_THEME_STORAGE_KEY);
-  return isPortfolioTheme(stored) ? stored : "light";
+  return getPortfolioThemeForHour(new Date().getHours());
 }
 
 function applyTheme(theme: PortfolioTheme) {
-  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.setAttribute("data-portfolio-theme", theme);
+  document.documentElement.setAttribute("data-theme", theme === "night" ? "dark" : theme);
   localStorage.setItem(PORTFOLIO_THEME_STORAGE_KEY, theme);
 }
 
@@ -23,9 +23,9 @@ export function usePortfolioTheme() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = readStoredTheme();
-    setThemeState(stored);
-    applyTheme(stored);
+    const defaultTheme = getDefaultTheme();
+    setThemeState(defaultTheme);
+    applyTheme(defaultTheme);
     setMounted(true);
   }, []);
 

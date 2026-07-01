@@ -105,7 +105,9 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
               {post.metadata.publishedAt ? `${formatDate(post.metadata.publishedAt)} · ` : ""}
               {readMinutes} min read
             </Text>
-            <Heading variant="display-strong-m">{post.metadata.title}</Heading>
+            <Heading className="blog-post-title" variant="display-strong-m">
+              {post.metadata.title}
+            </Heading>
             {post.metadata.subtitle && (
               <Text 
                 variant="body-default-l" 
