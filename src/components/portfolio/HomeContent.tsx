@@ -5,7 +5,13 @@ import Link from "next/link";
 import { person } from "@/resources";
 import { formatDate } from "@/utils/formatDate";
 import { getTagBadge } from "./blogBadge";
-import { clientProjects, heroChips } from "./siteContent";
+import {
+  capabilityPillars,
+  clientProjects,
+  heroChips,
+  proofPoints,
+  resumeUrl,
+} from "./siteContent";
 import { useHeroIntro } from "./usePageTransition";
 import { useScrollReveal } from "./useScrollReveal";
 
@@ -45,25 +51,23 @@ export function HomeContent({ latestPosts }: { latestPosts: HomeBlogPost[] }) {
           <div className="hero-grid">
             <div className="hero-copy">
               <div className="hero-role enter-item" style={{ ["--i" as string]: 1 }}>
-                GenAI Architect · Nitor Infotech
+                GenAI Architect - AI Solution Designer - LLMOps
               </div>
               <h1 className="hero-name enter-item" style={{ ["--i" as string]: 2 }}>
-                Sambid
-                <br />
-                <em>Pradhan</em>
+                I turn enterprise AI ideas into <em>production systems.</em>
               </h1>
               <p className="hero-statement enter-item" style={{ ["--i" as string]: 3 }}>
-                I build <strong>intelligent systems</strong> that think, automate, and scale — from
-                agentic RPA platforms replacing enterprise tooling, to LLM-powered clinical chatbots
-                deployed in production healthcare environments.
+                I&apos;m Sambid Pradhan, a GenAI Architect with 8+ years across AI, ML,
+                and data systems. I design agentic workflows, grounded assistants, RAG
+                pipelines, and LLMOps patterns for healthcare, retail, and automation teams.
               </p>
               <div className="hero-btns enter-item" style={{ ["--i" as string]: 4 }}>
-                <Link href="/work" className="btn-primary">
-                  See My Work →
+                <Link href="/about" className="btn-primary">
+                  View Profile
                 </Link>
-                <Link href="/blog" className="btn-outline">
-                  Read the Blog
-                </Link>
+                <a href={resumeUrl} className="btn-outline" download>
+                  Download Resume
+                </a>
               </div>
               <div className="hero-chips enter-item" style={{ ["--i" as string]: 5 }}>
                 {heroChips.map((chip) => (
@@ -74,28 +78,29 @@ export function HomeContent({ latestPosts }: { latestPosts: HomeBlogPost[] }) {
               </div>
             </div>
             <div className="hero-media enter-item" style={{ ["--i" as string]: 2 }}>
-              <Image
-                className="profile-img profile-img--home"
-                src={person.avatar}
-                alt={person.name}
-                width={360}
-                height={480}
-                priority
-                sizes="(max-width: 900px) 320px, 360px"
-              />
+              <div className="hero-profile-card">
+                <Image
+                  className="profile-img profile-img--home"
+                  src={person.avatar}
+                  alt={person.name}
+                  width={360}
+                  height={480}
+                  priority
+                  sizes="(max-width: 900px) 320px, 360px"
+                />
+                <div className="hero-profile-note">
+                  <span>Currently</span>
+                  <strong>Architecting agentic AI systems at Nitor Infotech</strong>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="home-metrics" aria-label="Highlights">
+      <section className="home-metrics" aria-label="Proof points">
         <div className="home-metrics-inner">
-          {[
-            { value: "5+", label: "Years as GenAI Architect" },
-            { value: "4", label: "Enterprise clients shipped" },
-            { value: "Prod", label: "Healthcare & retail LLM systems" },
-            { value: "Agentic", label: "Workflow automation at scale" },
-          ].map((item) => (
+          {proofPoints.map((item) => (
             <div key={item.label} className="home-metric">
               <span className="home-metric-value">{item.value}</span>
               <span className="home-metric-label">{item.label}</span>
@@ -104,15 +109,37 @@ export function HomeContent({ latestPosts }: { latestPosts: HomeBlogPost[] }) {
         </div>
       </section>
 
+      <section className="home-section home-capabilities">
+        <div className="home-section-inner">
+          <div className="home-section-head">
+            <div>
+              <div className="eyebrow">What I Bring</div>
+              <h2 className="section-title dark">Architecture, execution, and operating discipline.</h2>
+            </div>
+            <Link href="/work" className="home-section-link">
+              Explore projects {"->"}
+            </Link>
+          </div>
+          <div className="capability-grid">
+            {capabilityPillars.map((pillar) => (
+              <article className="capability-card" key={pillar.title}>
+                <h3>{pillar.title}</h3>
+                <p>{pillar.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="home-section home-featured reveal-section" ref={featuredRef}>
         <div className="home-section-inner">
           <div className="home-section-head">
             <div>
-              <div className="eyebrow">Selected Work</div>
+              <div className="eyebrow">Enterprise Impact</div>
               <h2 className="section-title dark">Production systems, not demos.</h2>
             </div>
-            <Link href="/work" className="home-section-link">
-              View all projects →
+            <Link href="/about" className="home-section-link">
+              View credibility proof {"->"}
             </Link>
           </div>
           <div className="home-featured-grid">
@@ -135,11 +162,7 @@ export function HomeContent({ latestPosts }: { latestPosts: HomeBlogPost[] }) {
               );
 
               return project.href ? (
-                <Link
-                  key={project.title}
-                  href={project.href}
-                  className="home-featured-card is-link"
-                >
+                <Link key={project.title} href={project.href} className="home-featured-card is-link">
                   {card}
                 </Link>
               ) : (
@@ -161,7 +184,7 @@ export function HomeContent({ latestPosts }: { latestPosts: HomeBlogPost[] }) {
                 <h2 className="section-title dark">Ideas from the frontier of AI.</h2>
               </div>
               <Link href="/blog" className="home-section-link">
-                All articles →
+                All articles {"->"}
               </Link>
             </div>
             <div className="home-writing-list">
@@ -171,12 +194,7 @@ export function HomeContent({ latestPosts }: { latestPosts: HomeBlogPost[] }) {
                 return (
                   <Link key={post.slug} href={`/blog/${post.slug}`} className="home-writing-card">
                     {thumbSrc ? (
-                      <img
-                        className="home-writing-thumb"
-                        src={thumbSrc}
-                        alt=""
-                        loading="lazy"
-                      />
+                      <img className="home-writing-thumb" src={thumbSrc} alt="" loading="lazy" />
                     ) : (
                       <span className={badge.className} aria-hidden="true">
                         {badge.label}
@@ -187,7 +205,7 @@ export function HomeContent({ latestPosts }: { latestPosts: HomeBlogPost[] }) {
                       <h3>{post.metadata.title}</h3>
                       <p>{post.metadata.summary}</p>
                       <span className="home-writing-meta">
-                        {formatDate(post.metadata.publishedAt, false)} ·{" "}
+                        {formatDate(post.metadata.publishedAt, false)} -{" "}
                         {estimateReadMinutes(post.content)} min read
                       </span>
                     </div>
@@ -203,11 +221,11 @@ export function HomeContent({ latestPosts }: { latestPosts: HomeBlogPost[] }) {
         <div className="home-contact-inner">
           <div>
             <h2>Building something with AI?</h2>
-            <p>Architecture reviews, co-founder conversations, or a hard problem worth solving — always open.</p>
+            <p>Architecture reviews, co-founder conversations, or a hard problem worth solving - always open.</p>
           </div>
           <div className="home-contact-actions">
             <a href="mailto:sambid9988@gmail.com" className="btn-primary">
-              Get in Touch →
+              Get in Touch
             </a>
             <a
               href="https://www.linkedin.com/in/sambid-pradhan/"

@@ -38,7 +38,7 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
             frontier of AI.
           </h1>
           <p className="blog-intro">
-            Practical insights on building, deploying, and scaling AI systems in the real world —
+            Practical insights on building, deploying, and scaling AI systems in the real world -
             written for engineers and architects who want to go deeper.
           </p>
         </div>
@@ -49,29 +49,29 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
           const thumbSrc = post.metadata.thumbnail || post.metadata.image;
           const badge = getTagBadge(post.metadata.tag);
           return (
-          <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
-            <div
-              className={`blog-thumb ${thumbSrc ? "blog-thumb-image" : THUMBS[index % THUMBS.length]}`}
-            >
-              {thumbSrc ? (
-                <img src={thumbSrc} alt="" />
-              ) : (
-                <span className={badge.className} aria-hidden="true">
-                  {badge.label}
-                </span>
-              )}
-            </div>
-            <div className="blog-body">
-              <div className="blog-cat">{post.metadata.tag}</div>
-              <div className="blog-title">{post.metadata.title}</div>
-              <div className="blog-excerpt">{post.metadata.summary}</div>
-              <div className="blog-meta">
-                <span className="blog-date">
-                  {formatDate(post.metadata.publishedAt, false)} · {estimateReadMinutes(post.content)} min read
-                </span>
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
+              <div
+                className={`blog-thumb ${thumbSrc ? "blog-thumb-image" : THUMBS[index % THUMBS.length]}`}
+              >
+                {thumbSrc ? (
+                  <img src={thumbSrc} alt="" />
+                ) : (
+                  <span className={badge.className} aria-hidden="true">
+                    {badge.label}
+                  </span>
+                )}
               </div>
-            </div>
-          </Link>
+              <div className="blog-body">
+                <div className="blog-cat">{post.metadata.tag}</div>
+                <div className="blog-title">{post.metadata.title}</div>
+                <div className="blog-excerpt">{post.metadata.summary}</div>
+                <div className="blog-meta">
+                  <span className="blog-date">
+                    {formatDate(post.metadata.publishedAt, false)} - {estimateReadMinutes(post.content)} min read
+                  </span>
+                </div>
+              </div>
+            </Link>
           );
         })}
       </div>
@@ -79,10 +79,10 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
       <div className="blog-cta">
         <div>
           <h3>Want to collaborate or chat AI?</h3>
-          <p>Architecture problems, new ideas, co-founder conversations — always open.</p>
+          <p>Architecture problems, new ideas, co-founder conversations - always open.</p>
         </div>
         <a href="mailto:sambid9988@gmail.com" className="btn-primary">
-          Get in Touch →
+          Get in Touch {"->"}
         </a>
       </div>
     </>

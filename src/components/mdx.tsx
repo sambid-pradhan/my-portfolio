@@ -10,7 +10,6 @@ import {
   InlineCode,
   CodeBlock,
   TextProps,
-  MediaProps,
   Accordion,
   AccordionGroup,
   Table,
@@ -57,20 +56,19 @@ function CustomLink({ href, children, ...props }: CustomLinkProps) {
   );
 }
 
-function createImage({ alt, src, ...props }: MediaProps & { src: string }) {
+function createImage({
+  alt = "",
+  src,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement> & { src: string }) {
   if (!src) {
-    console.error("Media requires a valid 'src' property.");
+    console.error("Image requires a valid 'src' property.");
     return null;
   }
 
   return (
-    <Media
-      marginTop="8"
-      marginBottom="16"
-      enlarge
-      radius="m"
-      border="neutral-alpha-medium"
-      sizes="(max-width: 960px) 100vw, 960px"
+    <img
+      className="blog-post-image"
       alt={alt}
       src={src}
       {...props}
@@ -155,15 +153,9 @@ function MdxTable({ children, ...props }: React.TableHTMLAttributes<HTMLTableEle
 
 function createParagraph({ children }: TextProps) {
   return (
-    <Text
-      style={{ lineHeight: "175%" }}
-      variant="body-default-m"
-      onBackground="neutral-medium"
-      marginTop="8"
-      marginBottom="12"
-    >
+    <p className="blog-post-paragraph">
       {children}
-    </Text>
+    </p>
   );
 }
 

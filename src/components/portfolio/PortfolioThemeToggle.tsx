@@ -4,9 +4,8 @@ import { PORTFOLIO_THEMES, PORTFOLIO_THEME_LABELS, type PortfolioTheme } from ".
 import { usePortfolioTheme } from "./usePortfolioTheme";
 
 const THEME_ICONS: Record<PortfolioTheme, string> = {
-  light: "☀",
-  dark: "◐",
-  night: "★",
+  light: "L",
+  dark: "D",
 };
 
 export function PortfolioThemeToggle({ className }: { className?: string }) {
@@ -15,7 +14,7 @@ export function PortfolioThemeToggle({ className }: { className?: string }) {
   if (!mounted) {
     return (
       <div className={`theme-switcher${className ? ` ${className}` : ""}`} aria-hidden="true">
-        <span className="theme-switcher__btn is-active">☀</span>
+        <span className="theme-switcher__btn is-active">L</span>
       </div>
     );
   }

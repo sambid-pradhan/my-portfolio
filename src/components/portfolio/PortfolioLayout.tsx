@@ -8,8 +8,13 @@ import { ToastProvider } from "./Toast";
 export function PortfolioLayout({ children }: { children: React.ReactNode }) {
   return (
     <ToastProvider>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <PortfolioNav />
-      <PageTransition>{children}</PageTransition>
+      <main id="main-content">
+        <PageTransition>{children}</PageTransition>
+      </main>
       <PortfolioFooter />
     </ToastProvider>
   );

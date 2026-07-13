@@ -1,3 +1,5 @@
+import "@once-ui-system/core/css/styles.css";
+import "@once-ui-system/core/css/tokens.css";
 import "@/resources/custom.css";
 import "@/components/portfolio/portfolio.css";
 
@@ -16,7 +18,7 @@ export async function generateMetadata() {
   });
 }
 
-const themeInitScript = `(function(){try{var h=new Date().getHours();var t=h>=7&&h<18?"light":h>=18&&h<22?"dark":"night";localStorage.setItem("portfolio-theme",t);localStorage.removeItem("portfolio-theme-mode");document.documentElement.setAttribute("data-portfolio-theme",t);document.documentElement.setAttribute("data-theme",t==="night"?"dark":t);}catch(e){}})();`;
+const themeInitScript = `(function(){try{var m=localStorage.getItem("portfolio-theme-mode");var s=localStorage.getItem("portfolio-theme");if(s==="night")s="dark";var manual=m==="manual"&&(s==="dark"||s==="light");var t=manual?s:"light";localStorage.setItem("portfolio-theme",t);if(!manual)localStorage.setItem("portfolio-theme-mode","default");document.documentElement.setAttribute("data-portfolio-theme",t);document.documentElement.setAttribute("data-theme",t);}catch(e){}})();`;
 
 // Turbopack dev-only: React RSC perf instrumentation can throw on notFound() (vercel/next.js#86060)
 const devPerfPatchScript =

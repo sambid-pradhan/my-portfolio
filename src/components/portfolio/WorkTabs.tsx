@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { useState } from "react";
-import { clientProjects, hobbyProjects } from "./siteContent";
+import { hobbyProjects } from "./siteContent";
 
 function CardLink({
   href,
@@ -35,95 +34,73 @@ function CardLink({
 }
 
 export function WorkTabs() {
-  const [tab, setTab] = useState<"client" | "hobby">("client");
+  const [featuredProject, ...otherProjects] = hobbyProjects;
 
   return (
     <>
       <section className="work-header">
-        <div className="eyebrow">Portfolio</div>
+        <div className="eyebrow">Projects Lab</div>
         <h1 className="section-title dark">
-          Projects that
+          Projects I&apos;m
           <br />
-          moved the needle.
+          building.
         </h1>
-        <div className="work-tabs" role="tablist" aria-label="Project categories">
-          <button
-            type="button"
-            className={`work-tab${tab === "client" ? " active" : ""}`}
-            role="tab"
-            aria-selected={tab === "client"}
-            onClick={() => setTab("client")}
-          >
-            Client Projects
-          </button>
-          <button
-            type="button"
-            className={`work-tab${tab === "hobby" ? " active" : ""}`}
-            role="tab"
-            aria-selected={tab === "hobby"}
-            onClick={() => setTab("hobby")}
-          >
-            Side Projects
-          </button>
-        </div>
+        <p className="work-intro">
+          Public tools, product experiments, and AI ideas I&apos;m shaping outside enterprise
+          delivery. Client impact lives on the About page; this space is for things you can follow,
+          try, or build with me.
+        </p>
       </section>
 
       <div className="work-panels">
-        <div className={`work-section${tab === "client" ? " is-active" : ""}`} id="tab-client">
-          <div className="projects-grid">
-            {clientProjects.map((p) => (
-              <CardLink key={p.title} href={p.href} className="project-card">
-                <div className={`project-accent pa-${p.accent}`}>
-                  <div>
-                    <div className="project-client">{p.client}</div>
-                    <div className="project-title">{p.title}</div>
-                  </div>
-                  <div className="role-badge">{p.role}</div>
+        <div className="work-section is-active">
+          {featuredProject && (
+            <CardLink href={featuredProject.href} className="project-lab-card project-lab-card--featured">
+              <div className={`project-lab-visual ${featuredProject.thumb}`}>
+                <span className="hobby-thumb-label">{featuredProject.title.slice(0, 1)}</span>
+              </div>
+              <div className="project-lab-body">
+                <div className={`project-lab-status ${featuredProject.badge}`}>
+                  {featuredProject.badgeText}
                 </div>
-                <div className="project-body">
-                  <p className="project-desc">{p.description}</p>
-                  <div className="tech-row">
-                    {p.tech.map((t) => (
-                      <span key={t} className="tech-tag">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="impact-bar">
-                    <span className="impact-label">Impact</span>
-                    {p.impact}
-                  </div>
+                <h2 className="project-lab-title">{featuredProject.title}</h2>
+                <p className="project-lab-desc">{featuredProject.description}</p>
+                <div className="project-lab-tags">
+                  {featuredProject.tags.map((tag) => (
+                    <span key={tag} className="project-lab-tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </CardLink>
+          )}
+
+          <div className="project-lab-grid">
+            {otherProjects.map((project) => (
+              <CardLink key={project.title} href={project.href} className="project-lab-card">
+                <div className={`project-lab-status ${project.badge}`}>{project.badgeText}</div>
+                <h2 className="project-lab-title">{project.title}</h2>
+                <p className="project-lab-desc">{project.description}</p>
+                <div className="project-lab-tags">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="project-lab-tag">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </CardLink>
             ))}
           </div>
-        </div>
 
-        <div className={`work-section${tab === "hobby" ? " is-active" : ""}`} id="tab-hobby">
-          <p className="hobby-intro">
-            Things I build outside of work — experiments, tools, and ideas I&apos;m genuinely curious
-            about. Some are live, most are works in progress.
-          </p>
-          <div className="hobby-grid">
-            {hobbyProjects.map((h) => (
-              <CardLink key={h.title} href={h.href} className="hobby-card">
-                <div className={`hobby-thumb ${h.thumb}`}>
-                  <span className="hobby-thumb-label">{h.title.slice(0, 1)}</span>
-                </div>
-                <div className="hobby-body">
-                  <div className={`hobby-badge ${h.badge}`}>{h.badgeText}</div>
-                  <div className="hobby-title">{h.title}</div>
-                  <div className="hobby-desc">{h.description}</div>
-                  <div className="hobby-stack">
-                    {h.tags.map((t) => (
-                      <span key={t} className="hobby-tag">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </CardLink>
-            ))}
+          <div className="project-lab-cta">
+            <div>
+              <h2>Have a problem worth solving with AI?</h2>
+              <p>Bring the domain pain. I&apos;ll bring the architecture, prototype loop, and shipping discipline.</p>
+            </div>
+            <a href="mailto:sambid9988@gmail.com" className="btn-primary">
+              Start a Conversation {"->"}
+            </a>
           </div>
         </div>
       </div>
