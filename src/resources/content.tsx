@@ -220,7 +220,7 @@ const work: Work = {
   path: "/work",
   label: "Work",
   title: `Work — ${person.name}`,
-  description: `Enterprise AI projects: agentic automation, healthcare chatbots, and ML systems by ${person.name}`,
+  description: `Public AI tools, product experiments, and project ideas by ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
   // All projects will be listed on the /home and /work routes
 };

@@ -122,7 +122,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
           <Row marginBottom="32" horizontal="center">
             <Row gap="16" vertical="center">
               <Avatar size="s" src={person.avatar} />
-              <Text variant="label-default-m" onBackground="brand-weak">
+              <Text className="blog-post-author" variant="label-default-m" onBackground="brand-weak">
                 {person.name}
               </Text>
             </Row>

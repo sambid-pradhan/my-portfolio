@@ -75,6 +75,22 @@
   --font-body: var(--font-dm-sans);
   --font-label: var(--font-dm-sans);
   --font-code: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  --type-display: clamp(2.75rem, 6.4vw, 4.75rem);
+  --type-page-title: clamp(2.35rem, 4.6vw, 3.7rem);
+  --type-section-title: clamp(1.85rem, 3.4vw, 2.65rem);
+  --type-panel-title: clamp(1.12rem, 1.7vw, 1.35rem);
+  --type-card-title: 1rem;
+  --type-body-lg: clamp(1.02rem, 1.4vw, 1.18rem);
+  --type-body: 0.94rem;
+  --type-body-sm: 0.84rem;
+  --type-meta: 0.76rem;
+  --type-label: 0.7rem;
+  --leading-tight: 1.08;
+  --leading-title: 1.18;
+  --leading-body: 1.68;
+  --tracking-display: -0.035em;
+  --tracking-title: -0.018em;
+  --tracking-label: 0.085em;
 }
 
 .mdx-table-wrap {
@@ -153,6 +169,23 @@
   width: 100%;
   font-family: var(--font-body), "DM Sans", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text);
+}
+
+.blog-post-paragraph {
+  margin: 0.5rem 0 0.85rem;
+  color: var(--muted);
+  font-family: var(--font-body), "DM Sans", "Segoe UI", sans-serif;
+  font-size: var(--type-body, 0.94rem);
+  line-height: 1.75;
+}
+
+.blog-post-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0.5rem 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
 }
 
 .blog-post-article,
@@ -327,4 +360,69 @@
   border-radius: 12px;
   background: transparent;
   box-shadow: none;
+}
+
+/* Blog detail page: keep Once UI MDX output inside the portfolio theme. */
+.blog-post-layout {
+  background: var(--cream);
+  color: var(--text);
+}
+
+.blog-post-main > div:first-child {
+  width: 100%;
+  max-width: 760px;
+}
+
+.blog-post-title {
+  width: 100%;
+  color: var(--teal-dark) !important;
+  font-family: var(--font-heading), Fraunces, Georgia, "Times New Roman", serif !important;
+  font-size: clamp(2.15rem, 5vw, 3.45rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: 0 !important;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.blog-post-author,
+.blog-post-author * {
+  color: #1e4845 !important;
+}
+
+[data-portfolio-theme="dark"] .blog-post-author,
+[data-portfolio-theme="dark"] .blog-post-author *,
+[data-portfolio-theme="night"] .blog-post-author,
+[data-portfolio-theme="night"] .blog-post-author * {
+  color: #80ff8a !important;
+}
+
+.blog-post-layout :where(p, li, blockquote, td, th, figcaption),
+.blog-post-layout :where(p, li, blockquote, td, th, figcaption) *,
+.blog-post-article > span,
+.blog-post-article > span * {
+  color: var(--muted) !important;
+  font-family: var(--font-body), "DM Sans", "Segoe UI", sans-serif !important;
+}
+
+.blog-post-layout :where(h1, h2, h3, h4, h5, h6),
+.blog-post-layout :where(h1, h2, h3, h4, h5, h6) * {
+  color: var(--teal-dark) !important;
+  font-family: var(--font-heading), Fraunces, Georgia, "Times New Roman", serif !important;
+  letter-spacing: 0 !important;
+}
+
+.blog-post-layout a:not(.button),
+.blog-post-layout a:not(.button) * {
+  color: var(--teal-dark) !important;
+}
+
+.blog-post-layout a:not(.button):hover,
+.blog-post-layout a:not(.button):hover * {
+  color: var(--coral-dark) !important;
+}
+
+.blog-post-layout code {
+  color: var(--teal-dark) !important;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
 }
